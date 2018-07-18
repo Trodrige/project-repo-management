@@ -2,13 +2,11 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class Project extends Model
 {
-    use Notifiable;
     use SoftDeletes;
 
     /**
@@ -17,16 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'firstname', 'lastname', 'email', 'password', 'role'
-    ];
-
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
+        'title', 'description', 'type', 'date_validated', 'filename_editable', 'filename_pdf'
     ];
 
     /**
@@ -37,17 +26,17 @@ class User extends Authenticatable
     protected $dates = ['deleted_at'];
 
     /**
-     * The projects under this user.
+     * The user(author) that this project belongs to.
      *
      * @return Response
      */
-     public function projects()
+     public function user()
      {
-         return $this->hasMany('App\Project');
+         return $this->belongsTo('App\User');
      }
 
      /**
-      * The comments under this user.
+      * The comments under this project.
       *
       * @return Response
       */

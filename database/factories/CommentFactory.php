@@ -13,16 +13,14 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(App\User::class, function (Faker $faker) {
+$factory->define(App\Comment::class, function (Faker $faker) {
 
-    $roles = array('student','staff', 'admin');
+    $user_ids = App\User::all()->pluck('id')->toArray();
+    $project_ids = App\Project::all()->pluck('id')->toArray();
 
     return [
-        'firstname' => $faker->name,
-        'lastname' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'password' => app('hash')->make('yourpassword'), // secret
-        'role' => $faker->randomElement($roles),
-        'remember_token' => str_random(10),
+        'body' => $faker->text($maxNbChars = 200),
+        'user_id' => $faker->randomElement($user_ids),
+        'project_id' => $faker->randomElement($project_ids),
     ];
 });
