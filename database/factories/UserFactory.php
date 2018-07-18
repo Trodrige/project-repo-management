@@ -18,8 +18,7 @@ $factory->define(App\User::class, function (Faker $faker) {
     $roles = array('student','staff', 'admin');
 
     return [
-        'firstname' => $faker->name,
-        'lastname' => $faker->name,
+        'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
         'password' => app('hash')->make('yourpassword'), // secret
         'role' => $faker->randomElement($roles),
