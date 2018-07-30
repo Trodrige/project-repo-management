@@ -15,7 +15,8 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->comment = "The user's name.";
+            $table->string('firstname')->comment = "The user's first name.";
+            $table->string('lastname')->commnet = "The user's last name"
             $table->string('email')->unique()->comment = "The user's email.";
             $table->string('password')->comment = "The user's password.";
             $table->string('role')->comment = "The user's role, student, staff or admin.";
