@@ -19,6 +19,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/home.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -74,6 +75,12 @@
         <main class="py-4">
             @yield('content')
         </main>
+
+        <footer class="footer">
+            <div id="footer">
+                <span class="text-muted"> &copy; ProjectManaga 2018</span>
+            </div>
+        </footer>
     </div>
 </body>
 </html>
