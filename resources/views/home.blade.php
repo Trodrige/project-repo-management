@@ -28,15 +28,17 @@
             </div>
             <table class="table table-striped">
                 <thead>
-                  <tr>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Type</th>
-                  </tr>
+                    <tr>
+                        <th>#</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Type</th>
+                    </tr>
                 </thead>
                 <tbody>
-                    @foreach($projects as $project)
+                    @foreach($projects as $key => $project)
                         <tr>
+                            <td>{{ $key + 1 }}</td>
                             <td>{{ $project->title }}</td>
                             <td>{{ $project->description }}</td>
                             <td>{{ $project->type }}</td>
@@ -44,6 +46,7 @@
                     @endforeach
                 </tbody>
             </table>
+            {{ $projects->links() }}
         </div>
     </div>
 </div>

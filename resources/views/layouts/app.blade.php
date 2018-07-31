@@ -76,11 +76,15 @@
             @yield('content')
         </main>
 
-        <footer class="footer">
-            <div id="footer">
-                <span class="text-muted"> &copy; ProjectManaga 2018</span>
-            </div>
-        </footer>
     </div>
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5"></div>
+                <div class="col-md-3"><span>&copy; ProjectManaga 2018</span></div>
+                <div class="col-md-4"></div>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>

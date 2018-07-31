@@ -16,7 +16,6 @@ body {
   background-color: #dee2e6;
 }
 
-
 /* Custom page CSS
 -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
@@ -25,4 +24,25 @@ body {
   width: auto;
   max-width: 680px;
   padding: 0 15px;
+  align-content: center;
+}
+
+#footer-text {
+    text-align: center;
+}
+
+/* change pagination link color */
+.pagination > li > a,
+.pagination > li > span {
+    color: solid black;
+}
+
+.pagination > .active > a,
+.pagination > .active > a:focus,
+.pagination > .active > a:hover,
+.pagination > .active > span,
+.pagination > .active > span:focus,
+.pagination > .active > span:hover {
+    background-color: #17a2b8 !important;
+    border-color: #17a2b8 !important;
 }

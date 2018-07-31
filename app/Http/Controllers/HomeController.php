@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
 use App\Project;
 
 class HomeController extends Controller
@@ -24,7 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $projects = Project::all();
+        $projects = Project::paginate(20);
         return view('home')->with('projects', $projects);
     }
 }
