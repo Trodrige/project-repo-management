@@ -26,6 +26,10 @@ class HomeController extends Controller
     public function index()
     {
         $projects = Project::paginate(20);
-        return view('home')->with('projects', $projects);
+        $num_of_projects = $projects->count();
+        return view('home')->with([
+            'projects' => $projects,
+            'num_of_projects' => $num_of_projects
+        ]);
     }
 }

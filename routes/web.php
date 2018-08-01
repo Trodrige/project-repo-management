@@ -20,4 +20,6 @@ Route::get('/account', function () {
 });
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home'); // show all projects in the system
+
+Route::get('/myprojects', 'ProjectController@index')->name('myprojects');

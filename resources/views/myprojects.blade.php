@@ -19,7 +19,8 @@
             </div> -->
             <div class="row">
                 <div class="col-md-10">
-                    <h2>All projects</h2>
+                    <h2>My projects</h2>
+                    <!-- <p>List of all projects in the system</p> -->
                 </div>
                 <div class="col-md-2">
                     <button type="button" class="btn btn-info">Upload project</button>
@@ -35,17 +36,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($projects as $project)
+                    @foreach($myprojects as $myproject)
                         <tr>
-                            <td>{{ $project->id }}</td>
-                            <td>{{ $project->title }}</td>
-                            <td>{{ $project->description }}</td>
-                            <td>{{ $project->type }}</td>
+                            <td>{{ $myproject->id }}</td>
+                            <td>{{ $myproject->title }}</td>
+                            <td>{{ $myproject->description }}</td>
+                            <td>{{ $myproject->type }}</td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
-            {{ $projects->links() }}
+            {{ $myprojects->links() }}
         </div>
     </div>
 </div>
