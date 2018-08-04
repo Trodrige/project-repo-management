@@ -15,7 +15,7 @@ use Faker\Generator as Faker;
 
 $factory->define(App\User::class, function (Faker $faker) {
 
-    $roles = array('student','staff', 'admin');
+    $roles = array('student','superadmin', 'admin');
 
     return [
         'firstname' => $faker->firstName,

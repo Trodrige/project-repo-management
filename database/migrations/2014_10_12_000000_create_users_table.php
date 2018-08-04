@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('lastname')->comment = "The user's last name";
             $table->string('email')->unique()->comment = "The user's email.";
             $table->string('password')->comment = "The user's password.";
-            $table->string('role')->comment = "The user's role, student, staff or admin.";
+            $table->string('role')->comment = "The user's role, student or superadmin or admin.";
 
             $table->rememberToken();
             $table->softDeletes();

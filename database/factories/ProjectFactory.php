@@ -17,15 +17,15 @@ $factory->define(App\Project::class, function (Faker $faker) {
 
     $types = array('internship','final_year_project');
 
-    $author_ids = App\User::where('role', 'student')->pluck('id')->toArray();
-    $jury_ids = App\User::where('role', 'staff')->pluck('id')->toArray();
+    $owner_ids = App\User::where('role', 'student')->pluck('id')->toArray();
+    $admin_ids = App\User::where('role', 'admin')->pluck('id')->toArray();
 
     return [
         'title' => $faker->catchPhrase(),
         'description' => $faker->text($maxNbChars = 200),
         'type' => $faker->randomElement($types),
         'date_validated' => $faker->date($format = 'Y-m-d', $max = 'now'),
-        'author_id' => $faker->randomElement($author_ids),
-        'jury_id' => $faker->randomElement($jury_ids),
+        'owner_id' => $faker->randomElement($owner_ids),
+        'admin_id' => $faker->randomElement($admin_ids),
     ];
 });
