@@ -15,11 +15,17 @@ Route::get('/', function () {
     return redirect('home');
 });
 
-Route::get('/account', function () {
-    return view('auth.account');
-});
+//Route::get('/account', function () {
+//    return view('auth.account');
+//});
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home'); // show all projects in the system
+
+Route::group(['middleware' => ['auth']], function() {
+    Route::resource('roles','RoleController');
+    Route::resource('users','UserController');
+    Route::resource('projects','ProjectController');
+});
 
 Route::get('/myprojects', 'ProjectController@index')->name('myprojects');

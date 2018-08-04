@@ -16,6 +16,7 @@ use Faker\Generator as Faker;
 $factory->define(App\User::class, function (Faker $faker) {
 
     $roles = array('student','superadmin', 'admin');
+    $is_admin = array('valid', 'invalid', 'is_student');
 
     return [
         'firstname' => $faker->firstName,
@@ -23,6 +24,7 @@ $factory->define(App\User::class, function (Faker $faker) {
         'email' => $faker->unique()->safeEmail,
         'password' => app('hash')->make('yourpassword'), // secret
         'role' => $faker->randomElement($roles),
+        'is_admin' => $faker->randomElement($is_admin),
         'remember_token' => str_random(10),
     ];
 });

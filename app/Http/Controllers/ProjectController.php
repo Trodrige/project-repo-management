@@ -19,7 +19,7 @@ class ProjectController extends Controller
         $id = Auth::id();
 
         if (Auth::check()) {
-            $myprojects = Project::where('author_id', $id)->paginate(20);
+            $myprojects = Project::where('owner_id', $id)->paginate(20);
         }
 
         return view('myprojects')->with([
