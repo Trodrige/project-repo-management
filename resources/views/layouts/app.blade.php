@@ -324,6 +324,11 @@
                 </div>
             </div>
 
+            <div class="content mt-3">
+                <main class="py-4">
+                    @yield('content')
+                </main>
+            </div> <!-- .content -->
 
            <div class="col-sm-6 col-lg-3">
                 <div class="card text-white bg-flat-color-1">
@@ -693,12 +698,6 @@
             </div>
 
 
-        </div> <!-- .content -->
-
-        <div class="content mt-3">
-            <main class="py-4">
-                @yield('content')
-            </main>
         </div> <!-- .content -->
 
     </div><!-- /#right-panel -->
