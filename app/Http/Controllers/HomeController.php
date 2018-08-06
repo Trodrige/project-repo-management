@@ -23,13 +23,13 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $projects = Project::paginate(20);
         $num_of_projects = $projects->count();
         return view('home')->with([
             'projects' => $projects,
-            'num_of_projects' => $num_of_projects
+            'i' => ($request->input('page', 1) - 1) * 20
         ]);
     }
 }

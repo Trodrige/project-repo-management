@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use App\Project;
+use App\User;
+use Spatie\Permission\Models\Role;
+use DB;
+use Hash;
 
-class ProjectController extends Controller
+class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,17 +17,9 @@ class ProjectController extends Controller
      */
     public function index(Request $request)
     {
-        // Get the currently authenticated user's ID...
-        $id = Auth::id();
-
-        if (Auth::check()) {
-            $myprojects = Project::where('owner_id', $id)->paginate(20);
-        }
-
-        return view('myprojects')->with([
-            'myprojects' => $myprojects,
-            'i' => ($request->input('page', 1) - 1) * 20
-        ]);
+        $data = User::orderBy('id','DESC')->paginate(10);
+        return view('admin.index',compact('data'))
+            ->with('i', ($request->input('page', 1) - 1) * 10);
     }
 
     /**

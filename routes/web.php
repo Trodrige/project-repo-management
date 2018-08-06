@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Middleware\IsAdmin;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,9 +25,12 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home'); // show all projects in the system
 
 Route::group(['middleware' => ['auth']], function() {
-    Route::resource('roles','RoleController');
-    Route::resource('users','UserController');
-    Route::resource('projects','ProjectController');
+
+    Route::get('/all', 'AdminController@index')->middleware('is_admin')->name('allusers');
+
+    //Route::resource('roles','RoleController');
+    Route::resource('users','AdminController');
+    //Route::resource('projects','ProjectController');
 });
 
 Route::get('/myprojects', 'ProjectController@index')->name('myprojects');

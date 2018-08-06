@@ -17,6 +17,18 @@
                     You are logged in!
                 </div>
             </div> -->
+
+            @section('message')
+                @if (session('failure'))
+                    <div class="alert  alert-danger alert-dismissible fade show" role="alert">
+                      <span class="badge badge-pill badge-danger">Failure</span> {{ session('failure') }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endif
+            @endsection
+
             <div class="row">
                 <div class="col-md-10">
                     <h2>All projects</h2>
@@ -37,7 +49,7 @@
                 <tbody>
                     @foreach($projects as $project)
                         <tr>
-                            <td>{{ $project->id }}</td>
+                            <td>{{ ++$i }}</td>
                             <td>{{ $project->title }}</td>
                             <td>{{ $project->description }}</td>
                             <td>{{ $project->type }}</td>
