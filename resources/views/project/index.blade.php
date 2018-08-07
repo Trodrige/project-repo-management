@@ -4,24 +4,27 @@
 <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
-            <h2>Admins Management</h2>
+            <h2>Projects Management</h2>
         </div>
         <div class="pull-right">
-            <a class="btn btn-success" href="{{ route('users') }}"> Create New Admin</a>
+            <a class="btn btn-success" href="{{ route('projects') }}"> Create New Project</a>
+        </div>
+        <div class="pull-right" style="margin-right:15px !important">
+            <a class="btn btn-info" href="{{ route('projects') }}"> My projects</a>
         </div>
     </div>
 </div>
 
 @if ($message = Session::get('success'))
     <div class="alert alert-success">
-        <p>{{ $message }}</p>
+        <p><label class="badge badge-success"></label> {{ $message }}</p>
     </div>
 @endif
 
 @if(count($data) <= 0)
     @section('message')
         <div class="alert  alert-info alert-dismissible fade show" role="alert">
-            <span class="badge badge-pill badge-info">Info</span> There are no admins available in this category!!!
+            <span class="badge badge-pill badge-info">Info</span> There are no projects available in this category!!!
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -31,28 +34,30 @@
     <table class="table table-bordered">
         <tr>
             <th>No</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Roles</th>
+            <th>Title</th>
+            <th>Type</th>
             <th>Status</th>
+            <th>Student</th>
+            <th>Admin</th>
             <th width="280px">Actions</th>
         </tr>
-        @foreach ($data as $key => $user)
+        @foreach ($data as $key => $project)
         <tr>
             <td>{{ ++$i }}</td>
-            <td>{{ $user->firstname }} {{ $user->lastname }}</td>
-            <td>{{ $user->email }}</td>
-            <td><label class="badge badge-success">{{ $user->role }}</label></td>
-            @if($user->is_admin == 'invalid')
-                <td><label class="badge badge-danger">{{ $user->is_admin }}</label></td>
+            <td>{{ $project->title }}</td>
+            <td><label class="badge badge-success">{{ $project->type }}</label></td>
+            @if($project->date_validated == '')
+                <td><label class="badge badge-danger">pending</label></td>
             @else
-                <td><label class="badge badge-warning">{{ $user->is_admin }}</label></td>
+                <td>Validated on: <label class="badge badge-warning">{{ $project->date_validated }}</label></td>
             @endif
+            <td>{{ $user->find($project->owner_id)->firstname }}&nbsp;<label class="badge badge-success">S</label></td>
+            <td>{{ $user->find($project->admin_id)->firstname }}&nbsp;<label class="badge badge-info">A</label></td>
             <td>
-               <a class="btn btn-info" href="{{ route('users',$user->id) }}">Show</a>
-               <!--<a class="btn btn-primary" href="{{ route('users',$user->id) }}">Edit</a> -->
+               <a class="btn btn-info" href="{{ route('projects',$project->id) }}">Show</a>
+               <!--<a class="btn btn-primary" href="{{ route('users',$project->id) }}">Edit</a> -->
                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit-admin">Edit</button>
-               <a class="btn btn-danger" href="{{ route('users',$user->id) }}">Delete</a>
+               <a class="btn btn-danger" href="{{ route('projects',$project->id) }}">Delete</a>
             </td>
         </tr>
         @endforeach

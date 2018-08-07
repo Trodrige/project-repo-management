@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Project;
+use App\User;
 
 class ProjectController extends Controller
 {
@@ -15,17 +16,23 @@ class ProjectController extends Controller
      */
     public function index(Request $request)
     {
-        // Get the currently authenticated user's ID...
-        $id = Auth::id();
+        $data = Project::orderBy('id','DESC')->paginate(10);
+        $user = User::all();
+        return view('project.index',compact('data'))
+            ->with(['user' => $user, 'i' => ($request->input('page', 1) - 1) * 10]);
+    }
 
-        if (Auth::check()) {
-            $myprojects = Project::where('owner_id', $id)->paginate(20);
-        }
-
-        return view('myprojects')->with([
-            'myprojects' => $myprojects,
-            'i' => ($request->input('page', 1) - 1) * 20
-        ]);
+    /**
+     * Display a listing of Validated projects.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function validatedProjects(Request $request)
+    {
+        $data = Project::where(['date_validated' => ''])->orderBy('id','DESC')->paginate(10);
+        $user = User::all();
+        return view('project.index',compact('data'))
+            ->with(['user' => $user, 'i' => ($request->input('page', 1) - 1) * 10]);
     }
 
     /**

@@ -4,10 +4,10 @@
 <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
-            <h2>Admins Management</h2>
+            <h2>Students Management</h2>
         </div>
         <div class="pull-right">
-            <a class="btn btn-success" href="{{ route('users') }}"> Create New Admin</a>
+            <a class="btn btn-success" href="{{ route('users') }}"> Create New Student</a>
         </div>
     </div>
 </div>
@@ -21,7 +21,7 @@
 @if(count($data) <= 0)
     @section('message')
         <div class="alert  alert-info alert-dismissible fade show" role="alert">
-            <span class="badge badge-pill badge-info">Info</span> There are no admins available in this category!!!
+            <span class="badge badge-pill badge-info">Info</span> There are no students available in this category!!!
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -60,29 +60,29 @@
 @endif
 
 <div class="modal fade" id="edit-admin" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-md" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="mediumModalLabel">Medium Modal</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <p>
-                                    There are three species of zebras: the plains zebra, the mountain zebra and the Grévy's zebra. The plains zebra
-                                    and the mountain zebra belong to the subgenus Hippotigris, but Grévy's zebra is the sole species of subgenus
-                                    Dolichohippus. The latter resembles an ass, to which it is closely related, while the former two are more
-                                    horse-like. All three belong to the genus Equus, along with other living equids.
-                                </p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                <button type="button" class="btn btn-primary">Confirm</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="mediumModalLabel">Medium Modal</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    There are three species of zebras: the plains zebra, the mountain zebra and the Grévy's zebra. The plains zebra
+                    and the mountain zebra belong to the subgenus Hippotigris, but Grévy's zebra is the sole species of subgenus
+                    Dolichohippus. The latter resembles an ass, to which it is closely related, while the former two are more
+                    horse-like. All three belong to the genus Equus, along with other living equids.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 {!! $data->render() !!}
 @endsection

@@ -67,72 +67,74 @@
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="active">
-                        <a href="#"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
+                        <a href="{{ route('home') }}"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
                     </li>
-                    <h3 class="menu-title">Admins</h3><!-- /.menu-title -->
+                    <h3 class="menu-title">Users</h3><!-- /.menu-title -->
                     <li>
-                        <a href="{{ route('allusers') }}"> <i class="menu-icon fa fa-laptop"></i>All admins</a>
+                        <a href="{{ route('users') }}"> <i class="menu-icon fa fa-users"></i>All users</a>
                     </li>
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Admins</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-adn"></i>Admins</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-puzzle-piece"></i><a href="ui-buttons.html">Valid admins</a></li>
-                            <li><i class="fa fa-id-badge"></i><a href="ui-badges.html">Pending validation</a></li>
+                            <li><i class="fa fa-suitcase"></i><a href="{{ route('admins') }}">All admins</a></li>
+                            <li><i class="fa fa-check-square-o"></i><a href="{{ route('validadmins') }}">Valid admins</a></li>
+                            <li><i class="fa fa-id-badge"></i><a href="{{ route('pendingadmins') }}">Pending validation</a></li>
                         </ul>
                     </li>
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Tables</a>
+                    <li><a href="{{ route('students') }}"> <i class="menu-icon fa fa-male"></i>Students</a></li>
+                    <!-- <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Students</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-table"></i><a href="tables-basic.html">Basic Table</a></li>
-                            <li><i class="fa fa-table"></i><a href="tables-data.html">Data Table</a></li>
+                            <li><i class="fa fa-puzzle-piece"></i><a href="{{ route('students') }}">All students</a></li>
+                            <li><i class="fa fa-table"></i><a href="{{ route('finalyearstudents') }}">Final year students</a></li>
+                            <li><i class="fa fa-table"></i><a href="{{ route('internshipstudents') }}">Internship students</a></li>
                         </ul>
-                    </li>
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Forms</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-th"></i><a href="forms-basic.html">Basic Form</a></li>
-                            <li><i class="menu-icon fa fa-th"></i><a href="forms-advanced.html">Advanced Form</a></li>
-                        </ul>
-                    </li>
+                    </li> -->
 
                     <h3 class="menu-title">Projects</h3><!-- /.menu-title -->
 
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>All projects</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-book"></i>Projects</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-fort-awesome"></i><a href="font-fontawesome.html">Validated</a></li>
-                            <li><i class="menu-icon ti-themify-logo"></i><a href="font-themify.html">Not validated</a></li>
+                            <li><i class="fa fa-book"></i><a href="{{ route('projects') }}">All projects</a></li>
+                            <li><i class="menu-icon fa fa-check-square-o"></i><a href="{{ route('validatedprojects') }}">Validated projects</a></li>
+                            <li><i class="menu-icon fa fa-tasks"></i><a href="{{ route('wipprojects') }}">Work In Progress</a></li>
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i>Final year Projects</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-line-chart"></i><a href="charts-chartjs.html">Validated</a></li>
-                            <li><i class="menu-icon fa fa-area-chart"></i><a href="charts-flot.html">Work In Progress</a></li>
+                            <li><i class="fa fa-puzzle-piece"></i><a href="{{ route('finalyearprojects') }}">All Final year Projects</a></li>
+                            <li><i class="menu-icon fa fa-check-square-o"></i><a href="{{ route('validatedfypprojects') }}">Validated FYPs</a></li>
+                            <li><i class="menu-icon fa fa-tasks"></i><a href="{{ route('wipfypprojects') }}">Work In Progress</a></li>
                         </ul>
                     </li>
 
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-area-chart"></i>Internship</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-area-chart"></i>Internship Projects</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-map-o"></i><a href="maps-gmap.html">Validated</a></li>
-                            <li><i class="menu-icon fa fa-street-view"></i><a href="maps-vector.html">Work In Progress</a></li>
+                            <li><i class="fa fa-area-chart"></i><a href="{{ route('internshipprojects') }}">All Internship projects</a></li>
+                            <li><i class="menu-icon fa fa-check-square-o"></i><a href="{{ route('validatedinternshipprojects') }}">Validated Internships</a></li>
+                            <li><i class="menu-icon fa fa-tasks"></i><a href="{{ route('wipinternshipprojects') }}">Work In Progress</a></li>
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-glass"></i>Course project</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-puzzle-piece"></i>Course Projects</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-sign-in"></i><a href="page-login.html">Validated</a></li>
-                            <li><i class="menu-icon fa fa-sign-in"></i><a href="page-register.html">Work In Progress</a></li>
+                            <li><i class="fa fa-area-chart"></i><a href="{{ route('courseprojects') }}">All course projects</a></li>
+                            <li><i class="menu-icon fa fa-check-square-o"></i><a href="{{ route('validatedcourseprojects') }}">Validated Course project</a></li>
+                            <li><i class="menu-icon fa fa-tasks"></i><a href="{{ route('wipcourseprojects') }}">Work In Progress</a></li>
                         </ul>
                     </li>
                     <h3 class="menu-title">Extras</h3><!-- /.menu-title -->
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-glass"></i>Course project</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-sign-in"></i><a href="page-login.html">Validated</a></li>
-                            <li><i class="menu-icon fa fa-sign-in"></i><a href="page-register.html">Work In Progress</a></li>
-                        </ul>
+                    <li>
+                        <a href="{{ route('adminprofile') }}"> <i class="menu-icon fa fa-user"></i>Profile</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('settings') }}"> <i class="menu-icon fa fa-gears"></i>Settings</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('logout') }}"> <i class="menu-icon fa fa-lock"></i>Logout</a>
                     </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
@@ -310,7 +312,7 @@
             </div>
         </div>
 
-        <div class="content mt-3">
+        <div class="content">
 
             <div class="col-sm-12" id="session_message">
                 @yield('message')

@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
+use Spatie\Permission\Models\Role;
+use DB;
+use Hash;
 
 class StudentController extends Controller
 {
@@ -11,9 +15,11 @@ class StudentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $data = User::where('role', 'student')->orderBy('id','DESC')->paginate(10);
+        return view('student.index',compact('data'))
+            ->with('i', ($request->input('page', 1) - 1) * 10);
     }
 
     /**

@@ -17,7 +17,31 @@ class AdminController extends Controller
      */
     public function index(Request $request)
     {
-        $data = User::orderBy('id','DESC')->paginate(10);
+        $data = User::where('role', 'admin')->orderBy('id','DESC')->paginate(10);
+        return view('admin.index',compact('data'))
+            ->with('i', ($request->input('page', 1) - 1) * 10);
+    }
+
+    /**
+     * Display a listing of Valid admins.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function validAdmins(Request $request)
+    {
+        $data = User::where(['is_admin' => 'valid', 'role' => 'admin'])->orderBy('id','DESC')->paginate(10);
+        return view('admin.index',compact('data'))
+            ->with('i', ($request->input('page', 1) - 1) * 10);
+    }
+
+    /**
+     * Display a listing of admins pending validation.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function pendingAdmins(Request $request)
+    {
+        $data = User::where(['is_admin' => 'invalid', 'role' => 'admin'])->orderBy('id','DESC')->paginate(10);
         return view('admin.index',compact('data'))
             ->with('i', ($request->input('page', 1) - 1) * 10);
     }
