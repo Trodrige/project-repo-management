@@ -29,8 +29,8 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $data = User::orderBy('id','DESC')->paginate(10);
-        return view('admin.index',compact('data'))
+        $data = Project::orderBy('id','DESC')->paginate(10);
+        return view('home',compact('data'))
             ->with('i', ($request->input('page', 1) - 1) * 10);
         /*$projects = Project::paginate(20);
         $num_of_projects = $projects->count();

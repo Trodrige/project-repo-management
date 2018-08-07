@@ -31,6 +31,7 @@
             <div class="col-md-10">
                 <h2>All projects</h2>
             </div>
+
             <div class="col-md-2">
                 <button type="button" class="btn btn-info">Upload project</button>
             </div>
@@ -45,7 +46,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($projects as $project)
+                @foreach($data as $key => $project)
                     <tr>
                         <td>{{ ++$i }}</td>
                         <td>{{ $project->title }}</td>
@@ -55,6 +56,6 @@
                 @endforeach
             </tbody>
         </table>
-        {{ $projects->links() }}
+        {{ $data->links() }}
     </div>
 @endsection
