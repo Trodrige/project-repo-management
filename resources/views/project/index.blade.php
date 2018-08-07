@@ -46,7 +46,7 @@
             <td>{{ ++$i }}</td>
             <td>{{ $project->title }}</td>
             <td><label class="badge badge-success">{{ $project->type }}</label></td>
-            @if($project->date_validated == '')
+            @if($project->date_validated == '0000-00-00')
                 <td><label class="badge badge-danger">pending</label></td>
             @else
                 <td>Validated on: <label class="badge badge-warning">{{ $project->date_validated }}</label></td>

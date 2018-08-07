@@ -15,7 +15,7 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Project::class, function (Faker $faker) {
 
-    $types = array('internship','final_year_project');
+    $types = array('internship','final_year_project', 'course');
 
     $owner_ids = App\User::where('role', 'student')->pluck('id')->toArray();
     $admin_ids = App\User::where('role', 'admin')->pluck('id')->toArray();

@@ -16,10 +16,10 @@ class ProjectController extends Controller
      */
     public function index(Request $request)
     {
-        $data = Project::orderBy('id','DESC')->paginate(10);
+        $data = Project::orderBy('id','ASC')->paginate(20);
         $user = User::all();
         return view('project.index',compact('data'))
-            ->with(['user' => $user, 'i' => ($request->input('page', 1) - 1) * 10]);
+            ->with(['user' => $user, 'i' => ($request->input('page', 1) - 1) * 20]);
     }
 
     /**
@@ -29,10 +29,140 @@ class ProjectController extends Controller
      */
     public function validatedProjects(Request $request)
     {
-        $data = Project::where(['date_validated' => ''])->orderBy('id','DESC')->paginate(10);
+        $data = Project::where('date_validated', '>', '0000-00-00')->orderBy('id','ASC')->paginate(20);
         $user = User::all();
         return view('project.index',compact('data'))
-            ->with(['user' => $user, 'i' => ($request->input('page', 1) - 1) * 10]);
+            ->with(['user' => $user, 'i' => ($request->input('page', 1) - 1) * 20]);
+    }
+
+    /**
+     * Display a listing of pending or work in progress projects.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function wipProjects(Request $request)
+    {
+        $data = Project::where('date_validated', '0000-00-00')->orderBy('id','ASC')->paginate(20);
+        $user = User::all();
+        return view('project.index',compact('data'))
+            ->with(['user' => $user, 'i' => ($request->input('page', 1) - 1) * 20]);
+    }
+
+    /**
+     * Display a listing of finalYearProjects projects.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function finalYearProjects(Request $request)
+    {
+        $data = Project::where('type', 'final_year_project')->orderBy('id','ASC')->paginate(20);
+        $user = User::all();
+        return view('project.index',compact('data'))
+            ->with(['user' => $user, 'i' => ($request->input('page', 1) - 1) * 20]);
+    }
+
+    /**
+     * Display a listing of validated finalYearProjects projects.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function validatedFypProjects(Request $request)
+    {
+        $data = Project::where('type', 'final_year_project')->where('date_validated', '>', '0000-00-00')->orderBy('id','ASC')->paginate(20);
+        $user = User::all();
+        return view('project.index',compact('data'))
+            ->with(['user' => $user, 'i' => ($request->input('page', 1) - 1) * 20]);
+    }
+
+    /**
+     * Display a listing of work in progress (pending) finalYearProjects projects.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function wipFypProjects(Request $request)
+    {
+        $data = Project::where('type', 'final_year_project')->where('date_validated', '0000-00-00')->orderBy('id','ASC')->paginate(20);
+        $user = User::all();
+        return view('project.index',compact('data'))
+            ->with(['user' => $user, 'i' => ($request->input('page', 1) - 1) * 20]);
+    }
+
+    /**
+     * Display a listing of internshipProjects projects.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function internshipProjects(Request $request)
+    {
+        $data = Project::where('type', 'internship')->orderBy('id','ASC')->paginate(20);
+        $user = User::all();
+        return view('project.index',compact('data'))
+            ->with(['user' => $user, 'i' => ($request->input('page', 1) - 1) * 20]);
+    }
+
+    /**
+     * Display a listing of validated internship projects.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function validatedInternshipProjects(Request $request)
+    {
+        $data = Project::where('type', 'internship')->where('date_validated', '>', '0000-00-00')->orderBy('id','ASC')->paginate(20);
+        $user = User::all();
+        return view('project.index',compact('data'))
+            ->with(['user' => $user, 'i' => ($request->input('page', 1) - 1) * 20]);
+    }
+
+    /**
+     * Display a listing of work in progress (pending) internship projects.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function wipInternshipProjects(Request $request)
+    {
+        $data = Project::where('type', 'internship')->where('date_validated', '0000-00-00')->orderBy('id','ASC')->paginate(20);
+        $user = User::all();
+        return view('project.index',compact('data'))
+            ->with(['user' => $user, 'i' => ($request->input('page', 1) - 1) * 20]);
+    }
+
+    /**
+     * Display a listing of course projects.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function courseProjects(Request $request)
+    {
+        $data = Project::where('type', 'course')->orderBy('id','ASC')->paginate(20);
+        $user = User::all();
+        return view('project.index',compact('data'))
+            ->with(['user' => $user, 'i' => ($request->input('page', 1) - 1) * 20]);
+    }
+
+    /**
+     * Display a listing of validated course projects.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function validatedCourseProjects(Request $request)
+    {
+        $data = Project::where('type', 'course')->where('date_validated', '>', '0000-00-00')->orderBy('id','ASC')->paginate(20);
+        $user = User::all();
+        return view('project.index',compact('data'))
+            ->with(['user' => $user, 'i' => ($request->input('page', 1) - 1) * 20]);
+    }
+
+    /**
+     * Display a listing of work in progress (pending) course projects.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function wipCourseProjects(Request $request)
+    {
+        $data = Project::where('type', 'course')->where('date_validated', '0000-00-00')->orderBy('id','ASC')->paginate(20);
+        $user = User::all();
+        return view('project.index',compact('data'))
+            ->with(['user' => $user, 'i' => ($request->input('page', 1) - 1) * 20]);
     }
 
     /**

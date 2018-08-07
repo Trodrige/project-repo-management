@@ -11,13 +11,25 @@ use Hash;
 class AdminController extends Controller
 {
     /**
+     * Display a listing of all users.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function allUsers(Request $request)
+    {
+        $data = User::orderBy('id','ASC')->paginate(10);
+        return view('admin.index',compact('data'))
+            ->with('i', ($request->input('page', 1) - 1) * 10);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
     {
-        $data = User::where('role', 'admin')->orderBy('id','DESC')->paginate(10);
+        $data = User::where('role', 'admin')->orderBy('id','ASC')->paginate(10);
         return view('admin.index',compact('data'))
             ->with('i', ($request->input('page', 1) - 1) * 10);
     }
@@ -29,7 +41,7 @@ class AdminController extends Controller
      */
     public function validAdmins(Request $request)
     {
-        $data = User::where(['is_admin' => 'valid', 'role' => 'admin'])->orderBy('id','DESC')->paginate(10);
+        $data = User::where(['is_admin' => 'valid', 'role' => 'admin'])->orderBy('id','ASC')->paginate(10);
         return view('admin.index',compact('data'))
             ->with('i', ($request->input('page', 1) - 1) * 10);
     }
@@ -41,7 +53,7 @@ class AdminController extends Controller
      */
     public function pendingAdmins(Request $request)
     {
-        $data = User::where(['is_admin' => 'invalid', 'role' => 'admin'])->orderBy('id','DESC')->paginate(10);
+        $data = User::where(['is_admin' => 'invalid', 'role' => 'admin'])->orderBy('id','ASC')->paginate(10);
         return view('admin.index',compact('data'))
             ->with('i', ($request->input('page', 1) - 1) * 10);
     }

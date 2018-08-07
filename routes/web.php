@@ -31,7 +31,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/adminprofile', 'AdminController@profile')->middleware('is_admin')->name('adminprofile');
     Route::get('/settings', 'AdminController@settings')->middleware('is_admin')->name('settings');
 
-    Route::get('/users', 'HomeController@index')->middleware('is_admin')->name('users');
+    Route::get('/users', 'AdminController@allUsers')->middleware('is_admin')->name('users');
 
     Route::get('/admins', 'AdminController@index')->middleware('is_admin')->name('admins');
     Route::get('/validadmins', 'AdminController@validAdmins')->middleware('is_admin')->name('validadmins');

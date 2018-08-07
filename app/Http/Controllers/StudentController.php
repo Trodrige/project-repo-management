@@ -17,7 +17,7 @@ class StudentController extends Controller
      */
     public function index(Request $request)
     {
-        $data = User::where('role', 'student')->orderBy('id','DESC')->paginate(10);
+        $data = User::where('role', 'student')->orderBy('id','ASC')->paginate(10);
         return view('student.index',compact('data'))
             ->with('i', ($request->input('page', 1) - 1) * 10);
     }
