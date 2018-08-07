@@ -18,7 +18,7 @@ class FileUpload
 
                 if($request->filled("filename_pdf")){
                     $this->validate($request, [
-                    'filename_pdf' => 'file|mimes:pdf|max:10000'
+                    'filename_pdf' => 'file|mimes:pdf|max:20000'
                     ]);
                 }
 
