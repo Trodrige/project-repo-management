@@ -38,7 +38,7 @@
                 <tbody>
                     @foreach($myprojects as $myproject)
                         <tr>
-                            <td>{{ $myproject->id }}</td>
+                            <td>{{ ++$i }}</td>
                             <td>{{ $myproject->title }}</td>
                             <td>{{ $myproject->description }}</td>
                             <td>{{ $myproject->type }}</td>

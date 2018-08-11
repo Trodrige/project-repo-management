@@ -84,8 +84,9 @@
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="active">
-                        <a href="#"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
+                        <a href="{{ route('home') }}"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
                     </li>
+
                     <li>
                         <a href="/home#upload"><i class="menu-icon fa fa-upload"></i> Upload Project</a>
                     </li>
@@ -96,7 +97,78 @@
                         <a href="#"><i class="menu-icon fa fa-folder-open"></i> My projects</a>
                     </li>
                     <li>
-                        <a href="/home#allProjects"><i class="menu-icon fa fa-archive"></i> All projects</a>
+                        <a href="/home#allProjects"><i class="menu-icon fa fa-archive"></i> All projects</
+                    <h3 class="menu-title">Users</h3><!-- /.menu-title -->
+                    <li>
+                        <a href="{{ route('users') }}"> <i class="menu-icon fa fa-users"></i>All users</a>
+                    </li>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-adn"></i>Admins</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="fa fa-suitcase"></i><a href="{{ route('admins') }}">All admins</a></li>
+                            <li><i class="fa fa-check-square-o"></i><a href="{{ route('validadmins') }}">Valid admins</a></li>
+                            <li><i class="fa fa-id-badge"></i><a href="{{ route('pendingadmins') }}">Pending validation</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="{{ route('students') }}"> <i class="menu-icon fa fa-male"></i>Students</a></li>
+                    <!-- <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Students</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="fa fa-puzzle-piece"></i><a href="{{ route('students') }}">All students</a></li>
+                            <li><i class="fa fa-table"></i><a href="{{ route('finalyearstudents') }}">Final year students</a></li>
+                            <li><i class="fa fa-table"></i><a href="{{ route('internshipstudents') }}">Internship students</a></li>
+                        </ul>
+                    </li> -->
+
+                    <h3 class="menu-title">Projects</h3><!-- /.menu-title -->
+
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-book"></i>Projects</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="fa fa-book"></i><a href="{{ route('projects') }}">All projects</a></li>
+                            <li><i class="menu-icon fa fa-check-square-o"></i><a href="{{ route('validatedprojects') }}">Validated projects</a></li>
+                            <li><i class="menu-icon fa fa-tasks"></i><a href="{{ route('wipprojects') }}">Work In Progress</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i>Final year Projects</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="fa fa-puzzle-piece"></i><a href="{{ route('finalyearprojects') }}">All Final year Projects</a></li>
+                            <li><i class="menu-icon fa fa-check-square-o"></i><a href="{{ route('validatedfypprojects') }}">Validated FYPs</a></li>
+                            <li><i class="menu-icon fa fa-tasks"></i><a href="{{ route('wipfypprojects') }}">Work In Progress</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-area-chart"></i>Internship Projects</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="fa fa-area-chart"></i><a href="{{ route('internshipprojects') }}">All Internship projects</a></li>
+                            <li><i class="menu-icon fa fa-check-square-o"></i><a href="{{ route('validatedinternshipprojects') }}">Validated Internships</a></li>
+                            <li><i class="menu-icon fa fa-tasks"></i><a href="{{ route('wipinternshipprojects') }}">Work In Progress</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-puzzle-piece"></i>Course Projects</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="fa fa-area-chart"></i><a href="{{ route('courseprojects') }}">All course projects</a></li>
+                            <li><i class="menu-icon fa fa-check-square-o"></i><a href="{{ route('validatedcourseprojects') }}">Validated Course project</a></li>
+                            <li><i class="menu-icon fa fa-tasks"></i><a href="{{ route('wipcourseprojects') }}">Work In Progress</a></li>
+                        </ul>
+
+                    </li>
+                    <h3 class="menu-title">Extras</h3><!-- /.menu-title -->
+                    <li>
+                        <a href="{{ route('adminprofile') }}"> <i class="menu-icon fa fa-user"></i>Profile</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('settings') }}"> <i class="menu-icon fa fa-gears"></i>Settings</a>
+                    </li>
+                    <li>
+                        <a class="nav-link dropdown-item" href="{{ route('logout') }}"
+                           onclick="event.preventDefault();
+                                         document.getElementById('logout-form').submit();"> <i class="menu-icon fa fa-lock"></i>
+                            {{ __('Logout') }}
+                        </a>
                     </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
@@ -141,6 +213,7 @@
                     @else
                         <div class="user-area dropdown float-right">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span>{{ Auth::user()->firstname }}</span>&nbsp;
                                 <img class="user-avatar rounded-circle" src="{{ asset('images/admin.jpg') }}" alt="User Avatar">
                             </a>
 
@@ -172,18 +245,24 @@
             </div>
 
         </header><!-- /header -->
-        <!-- Header-->
-
-        
-
+     
         <div class="content mt-3">
 
         </div> <!-- .content -->
 
-        <div class="content mt-3">
-            <main class="py-4">
-                @yield('content')
-            </main>
+      
+        <div class="content">
+
+            <div class="col-sm-12" id="session_message">
+                @yield('message')
+            </div>
+
+            <div class="content mt-3">
+                <main class="py-4">
+                    @yield('content')
+                </main>
+            </div> <!-- .content -->
+
         </div> <!-- .content -->
 
     </div><!-- /#right-panel -->
@@ -204,6 +283,13 @@
     <script src="{{ asset('assets/js/lib/vector-map/jquery.vmap.sampledata.js') }}"></script>
     <script src="{{ asset('assets/js/lib/vector-map/country/jquery.vmap.world.js') }}"></script>
     <script>
+        jQuery(function($) {
+            // This function is to hide the "Note" and session alerts after 15seconds
+            setTimeout(function(){
+                $("#session_message").hide();
+            }, 15000);
+        });
+
         ( function ( $ ) {
             "use strict";
 
@@ -220,6 +306,7 @@
                 normalizeFunction: 'polynomial'
             } );
         } )( jQuery );
+
 
         //Go to top button
         $(document).ready(function() {
@@ -243,5 +330,8 @@
 <footer>
         <a href="#" class="go-top">Top</a>
 </footer>
+
+    @yield('javascript')
+
 </body>
 </html>
