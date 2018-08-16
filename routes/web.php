@@ -37,9 +37,15 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/validadmins', 'AdminController@validAdmins')->middleware('is_admin')->name('validadmins');
     Route::get('/pendingadmins', 'AdminController@pendingAdmins')->middleware('is_admin')->name('pendingadmins');
 
+    Route::post('/admin', 'AdminController@store')->middleware('is_admin')->name('createadmin');
+    Route::patch('/admin/{}', 'AdminController@update')->middleware('is_admin')->name('updateadmin');
+    Route::delete('/admin/{}', 'AdminController@destroy')->middleware('is_admin')->name('deleteadmin');
+
+
     Route::get('/students', 'StudentController@index')->middleware('is_admin')->name('students');
     Route::get('/finalyearstudents', 'StudentController@finalYearStudents')->middleware('is_admin')->name('finalyearstudents');
     Route::get('/internshipstudents', 'StudentController@internshipStudents')->middleware('is_admin')->name('internshipstudents');
+
 
     Route::get('/projects', 'ProjectController@index')->middleware('is_admin')->name('projects');
     Route::get('/validatedprojects', 'ProjectController@validatedProjects')->middleware('is_admin')->name('validatedprojects');

@@ -7,7 +7,7 @@
             <h2>Admins Management</h2>
         </div>
         <div class="pull-right">
-            <a class="btn btn-success" href="{{ route('users') }}"> Create New Admin</a>
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#add-admin">Create New Admin</button>
         </div>
     </div>
 </div>
@@ -58,6 +58,101 @@
         @endforeach
     </table>
 @endif
+
+<!-- Add admin modal -->
+<div class="modal fade" id="add-admin" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle"><b>New Admin</b></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="add-admin-form" action="{{ route('createadmin') }}" id="add-admin-form" method="post">
+                            {{ csrf_field() }}
+                            <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
+                            <div class="form-group row">
+                                <label for="firstname" class="col-sm-2 col-form-label">{{ __('Firstname') }}</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="firstname" class="form-control" id="firstname" placeholder="Enter firstname">
+                                    @if ($errors->has('firstname'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('firstname') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="lastname" class="col-sm-2 col-form-label">{{ __('Lastname') }}</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="lastname" class="form-control" id="lastname" placeholder="Enter lastname">
+                                    @if ($errors->has('lastname'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('lastname') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="email" class="col-sm-2 col-form-label">{{ __('Email') }}</label>
+                                <div class="col-sm-10">
+                                    <input type="email" name="email" class="form-control" id="email" placeholder="Enter email">
+                                    @if ($errors->has('email'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('email') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="role" class="col-sm-2 col-form-label">{{ __('Role') }}</label>
+                                <div class="col-sm-10">
+                                    <select id="role" class="form-control" name="role" disabled>
+                                    <option value="admin">{{ __('Admin') }}</option>
+                                        <option value="student">{{ __('Student') }}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="password" class="col-sm-2 col-form-label">{{ __('Password') }}</label>
+                                <div class="col-sm-10">
+                                    <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+                                    @if ($errors->has('password'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('password') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="password-confirm" class="col-sm-2 col-form-label">{{ __('Confirm Password') }}</label>
+                                <div class="col-sm-10">
+                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="is_admin" class="col-sm-2 col-form-label">{{ __('Status') }}</label>
+                                <div class="col-sm-10">
+                                    <select id="is_admin" class="form-control" name="is_admin" disabled>
+                                        <option value="valid">{{ __('Valid') }}</option>
+                                        <option value="invalid">{{ __('Invalid') }}</option>
+                                        <option value="is_student">{{ __('Student') }}</option>s
+                                    </select>
+                                </div>
+                            </div>
+                            <hr />
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                            <button type="submit" name="submit" class="btn btn-info">Save</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!-- /#add-admin -->
+
+
 
 <div class="modal fade" id="edit-admin" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-md" role="document">
