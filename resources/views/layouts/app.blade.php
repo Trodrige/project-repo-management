@@ -56,11 +56,11 @@
 	font-size: 12px;
 	padding: 1em;
 	display: none;
-}
+    }
 
-.go-top:hover {
-	background-color: rgba(0, 0, 0, 0.6);
-}
+    .go-top:hover {
+	    background-color: rgba(0, 0, 0, 0.6);
+    }
 </style>
 
 
@@ -90,10 +90,10 @@
                         <a href="/home#upload"><i class="menu-icon fa fa-upload"></i> Upload Project</a>
                     </li>
                     <li>
-                        <a href="#"><i class="menu-icon fa fa-download"></i> Download project</a>
+                        <a href="/myprojects"><i class="menu-icon fa fa-download"></i> Download project</a>
                     </li>
                     <li>
-                        <a href="#"><i class="menu-icon fa fa-folder-open"></i> My projects</a>
+                        <a href="/myprojects"><i class="menu-icon fa fa-folder-open"></i> My projects</a>
                     </li>
                     <li>
                         <a href="/home#allProjects"><i class="menu-icon fa fa-archive"></i> All projects</a>
