@@ -31,6 +31,10 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
+
+  //student development
+        $projects = Project::paginate(5);
+      //admin development
         $num_of_users = User::all()->count();
         $num_of_students = User::where('role', 'student')->count();
         $num_of_admins = User::where('role', 'admin')->orWhere('role', 'superadmin')->count();
@@ -59,10 +63,31 @@ class HomeController extends Controller
                 'permissions' => $permissions,
             ]);
         /*$projects = Project::paginate(20);
+
         $num_of_projects = $projects->count();
         return view('home')->with([
             'projects' => $projects,
             'i' => ($request->input('page', 1) - 1) * 20
         ]);*/
+    }
+
+    function getFile($filename){
+
+        
+    	$file=Storage::disk('public')->get($filename);
+
+		return (new Response($file, 200))
+              ->header('Content-Type', 'application/zip');
+
+        $files = Storage::files("public");
+        $zip_filename=array();
+        foreach ($files as $key => $value) {
+            $value= str_replace("public/","",$value);
+            array_push($zip_filename,$value);
+        }
+        //return view('myprojects' , compact('projects'))->with(['zip_filename' => $zip_filename,]);
+        //return view('myprojects', ['zip_filename' => $zip_filename]);
+        //return redirect()->route('getfile', ['zip_filename' => $zip_filename]);
+        //return view('myprojects', compact('projects'));
     }
 }

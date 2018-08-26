@@ -28,6 +28,15 @@ Route::get('/myprojects', 'ProjectController@index')->name('myprojects');
 
 Route::group(['middleware' => ['auth']], function() {
 
+    Route::resource('roles','RoleController');
+    Route::resource('users','UserController');
+    Route::resource('projects','ProjectController');
+    Route::get('/myprojects', 'ProjectController@index')->name('myprojects');
+    Route::get('/{filename}', 'DownloadController@getFile')->name('getfile');
+    Route::delete('myprojects/delete-project/{id}', 'ProjectController@destroy')->name('destroy');
+    Route::post('/{filename_pdf}', 'DownloadController@show')->name('getpdf');
+
+
     Route::get('/adminprofile', 'AdminController@profile')->middleware('is_admin')->name('adminprofile');
     Route::get('/settings', 'AdminController@settings')->middleware('is_admin')->name('settings');
 
@@ -66,4 +75,5 @@ Route::group(['middleware' => ['auth']], function() {
     //Route::resource('roles','RoleController');
     //Route::resource('users','AdminController');
     //Route::resource('projects','ProjectController');
+
 });
