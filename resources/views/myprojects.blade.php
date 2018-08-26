@@ -49,7 +49,7 @@
                             //echo $zip_filename;
                         ?>
                         <tr>
-                            <td>{{ $myproject->id }}</td>
+                            <td>{{ ++$i }}</td>
                             <td>{{ $myproject->title }}</td>
                             <td>{{ $myproject->type }}</td>
                             <td><a href="{{ route('getpdf', $filename_pdf) }}"><button type="button" class="btn btn-success">Open Pdf</button></a></td>
