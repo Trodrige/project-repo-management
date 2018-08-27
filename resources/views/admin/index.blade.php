@@ -170,7 +170,7 @@
                             </div>
                             <hr />
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                            <button type="submit" name="submit" class="btn btn-info">Update</button>
+                            <button type="submit" name="submit" class="btn btn-info">Add</button>
                         </form>
                     </div>
                 </div>

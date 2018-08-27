@@ -50,6 +50,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/finalyearstudents', 'StudentController@finalYearStudents')->middleware('is_admin')->name('finalyearstudents');
     Route::get('/internshipstudents', 'StudentController@internshipStudents')->middleware('is_admin')->name('internshipstudents');
 
+    Route::post('/student', 'StudentController@store')->middleware('is_admin')->name('createstudent');
+    Route::patch('/student/{id}', 'StudentController@update')->middleware('is_admin')->name('updatestudent');
+    Route::delete('/student/{id}', 'StudentController@destroy')->middleware('is_admin')->name('deletestudent');
 
     Route::get('/projects', 'ProjectController@index')->name('projects');
     Route::get('/validatedprojects', 'ProjectController@validatedProjects')->name('validatedprojects');
