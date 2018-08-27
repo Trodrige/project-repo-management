@@ -15,12 +15,6 @@
     </div>
 </div>
 
-@if ($message = Session::get('success'))
-    <div class="alert alert-success">
-        <p><label class="badge badge-success"></label> {{ $message }}</p>
-    </div>
-@endif
-
 @if(count($data) <= 0)
     @section('message')
         <div class="alert  alert-info alert-dismissible fade show" role="alert">
@@ -31,6 +25,24 @@
         </div>
     @endsection
 @else
+    @section('message')
+        @if ($message = Session::get('success'))
+            <div class="alert alert-success alert-dismissible fade show" id="session-message" role="alert">
+                <span class="badge badge-pill badge-success">Success!</span> {{ $message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
+        @if ($message = Session::get('failure'))
+            <div class="alert alert-danger alert-dismissible fade show" id="session-message" role="alert">
+                <span class="badge badge-pill badge-danger">Success!</span> {{ $message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
+    @endsection
     <table class="table table-bordered">
         <tr>
             <th>No</th>

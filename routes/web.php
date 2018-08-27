@@ -24,9 +24,13 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home'); // show all projects in the system
 
-Route::get('/myprojects', 'ProjectController@index')->name('myprojects');
+//Route::get('/myprojects', 'ProjectController@index')->name('myprojects');
 
 Route::group(['middleware' => ['auth']], function() {
+
+    //Route::resource('roles','RoleController');
+    //Route::resource('users','UserController');
+    Route::resource('projects','ProjectController');
 
     Route::get('/adminprofile', 'AdminController@profile')->middleware('is_admin')->name('adminprofile');
     Route::get('/settings', 'AdminController@settings')->middleware('is_admin')->name('settings');
@@ -38,7 +42,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/pendingadmins', 'AdminController@pendingAdmins')->middleware('is_admin')->name('pendingadmins');
 
     Route::post('/admin', 'AdminController@store')->middleware('is_admin')->name('createadmin');
-    Route::patch('/admin/{}', 'AdminController@update')->middleware('is_admin')->name('updateadmin');
+    Route::patch('/admin/{id}', 'AdminController@update')->middleware('is_admin')->name('updateadmin');
     Route::delete('/admin/{}', 'AdminController@destroy')->middleware('is_admin')->name('deleteadmin');
 
 
@@ -62,6 +66,11 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/courseprojects', 'ProjectController@courseProjects')->middleware('is_admin')->name('courseprojects');
     Route::get('/validatedcourseprojects', 'ProjectController@validatedCourseProjects')->middleware('is_admin')->name('validatedcourseprojects');
     Route::get('/wipcourseprojects', 'ProjectController@wipCourseProjects')->middleware('is_admin')->name('wipcourseprojects');
+
+     Route::get('/myprojects', 'ProjectController@myprojects')->name('myprojects');
+     Route::get('/{filename}', 'DownloadController@getFile')->name('getfile');
+     Route::delete('myprojects/delete-project/{id}', 'ProjectController@destroy')->name('destroy');
+     Route::post('/{filename_pdf}', 'DownloadController@getPdfFile')->name('getpdf');
 
     //Route::resource('roles','RoleController');
     //Route::resource('users','AdminController');

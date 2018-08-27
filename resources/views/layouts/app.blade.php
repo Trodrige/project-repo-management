@@ -46,6 +46,23 @@
 </head>
 <body>
 
+     <style>
+         .go-top {
+     	position: fixed;
+     	bottom: 2em;
+     	right: 2em;
+     	text-decoration: none;
+     	color: white;
+     	background-color: rgba(0, 0, 0, 0.3);
+     	font-size: 12px;
+     	padding: 1em;
+     	display: none;
+         }
+
+         .go-top:hover {
+     	    background-color: rgba(0, 0, 0, 0.6);
+         }
+     </style>
 
         <!-- Left Panel -->
 
@@ -69,6 +86,21 @@
                     <li class="active">
                         <a href="{{ route('home') }}"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
                     </li>
+
+
+                    <li>
+                         <a href="/home#upload"><i class="menu-icon fa fa-upload"></i> Upload Project</a>
+                     </li>
+                     <li>
+                         <a href="/myprojects"><i class="menu-icon fa fa-download"></i> Download project</a>
+                     </li>
+                     <li>
+                         <a href="/myprojects"><i class="menu-icon fa fa-folder-open"></i> My projects</a>
+                     </li>
+                     <li>
+                         <a href="{{ route('projects') }}"><i class="menu-icon fa fa-archive"></i> All projects</a>
+
+
                     <h3 class="menu-title">Users</h3><!-- /.menu-title -->
                     <li>
                         <a href="{{ route('users') }}"> <i class="menu-icon fa fa-users"></i>All users</a>
@@ -328,7 +360,7 @@
                 </main>
             </div> <!-- .content -->
 
-           
+
 
 
         </div> <!-- .content -->
@@ -355,6 +387,41 @@
             setTimeout(function(){
                 $("#session_message").hide();
             }, 15000);
+
+            // Show or hide the sticky footer button
+ 			$(window).scroll(function() {
+ 				if ($(this).scrollTop() > 200) {
+ 					$('.go-top').fadeIn(200);
+ 				} else {
+ 					$('.go-top').fadeOut(200);
+ 				}
+ 			});
+
+ 			// Animate the scroll to top
+ 			$('.go-top').click(function(event) {
+ 				event.preventDefault();
+
+ 				$('html, body').animate({scrollTop: 0}, 300);
+ 			});
+
+            $('#edit-admin').on('show.bs.modal', function(e){
+            $('#edit-admin #firstname').val($(e.relatedTarget).data('firstname'));
+            $('#edit-admin #lastname').val($(e.relatedTarget).data('lastname'));
+            $('#edit-admin #email').val($(e.relatedTarget).data('email'));
+            $('#edit-admin #role').val($(e.relatedTarget).data('role'));
+            $('#edit-admin #is_admin').val($(e.relatedTarget).data('is_admin'));
+            $('#edit-admin-form').submit(function(){
+                var id = $('#edit-admin #id').val($(e.relatedTarget).data('id'));
+                var newFirstname = $('#edit-admin #firstname').val();
+                var newLastname = $('#edit-admin #lastname').val();
+                var newEmail = $('#edit-admin #email').val();
+                var newRole = $('#edit-admin #role').val();
+                var newIsadmin = $('#edit-admin #is_admin').val();
+                $("#edit-admin-form").attr("action", "/admin/" + id );
+            });
+        });
+
+
         });
 
         ( function ( $ ) {
@@ -374,6 +441,10 @@
             } );
         } )( jQuery );
     </script>
+
+     <footer>
+         <a href="#" class="go-top">Top</a>
+     </footer>
 
     @yield('javascript')
 

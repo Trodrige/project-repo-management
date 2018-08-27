@@ -31,7 +31,9 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
+        $projects = Project::paginate(5);
         $num_of_users = User::all()->count();
+        $valid_admins = User::where('role', 'admin')->where('is_admin', 'valid')->get();
         $num_of_students = User::where('role', 'student')->count();
         $num_of_admins = User::where('role', 'admin')->orWhere('role', 'superadmin')->count();
         $num_of_valid_admins = User::where('role', 'admin')->where('is_admin', 'valid')->count();
@@ -43,6 +45,7 @@ class HomeController extends Controller
         $comments = Comment::all()->count();
         $permissions = Permission::all()->count();
         $data = Project::orderBy('id','ASC')->paginate(20);
+        //dd($valid_admins);
         return view('home',compact('data'))
             ->with([
                 'i' => ($request->input('page', 1) - 1) * 20,
@@ -57,6 +60,8 @@ class HomeController extends Controller
                 'recent_projects' => $recent_projects,
                 'comments' => $comments,
                 'permissions' => $permissions,
+                'projects' => $projects,
+                'valid_admins' => $valid_admins,
             ]);
         /*$projects = Project::paginate(20);
         $num_of_projects = $projects->count();
@@ -65,4 +70,25 @@ class HomeController extends Controller
             'i' => ($request->input('page', 1) - 1) * 20
         ]);*/
     }
+
+    function getFile($filename){
+
+
+     	$file=Storage::disk('public')->get($filename);
+
+ 		return (new Response($file, 200))
+               ->header('Content-Type', 'application/zip');
+
+         $files = Storage::files("public");
+         $zip_filename=array();
+         foreach ($files as $key => $value) {
+             $value= str_replace("public/","",$value);
+             array_push($zip_filename,$value);
+         }
+         //return view('myprojects' , compact('projects'))->with(['zip_filename' => $zip_filename,]);
+         //return view('myprojects', ['zip_filename' => $zip_filename]);
+         //return redirect()->route('getfile', ['zip_filename' => $zip_filename]);
+         //return view('myprojects', compact('projects'));
+     }
+
 }

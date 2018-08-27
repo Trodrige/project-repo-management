@@ -29,6 +29,7 @@ class AdminController extends Controller
      */
     public function index(Request $request)
     {
+        //dd($request->all());
         $data = User::where('role', 'admin')->orderBy('id','ASC')->paginate(10);
         return view('admin.index',compact('data'))
             ->with('i', ($request->input('page', 1) - 1) * 10);
@@ -133,7 +134,34 @@ class AdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //dd($request->all());
+        $validate = Validator::make($request->all(), [
+            'firstname' => 'required|max:255',
+            'lastname' => 'required|max:255',
+            'email' => 'required|email|max:255',
+            'role' => 'required|max:255',
+            'is_admin' => 'required|max:255',
+        ]);
+
+        if($validate->fails()){
+            return redirect()->back()->withErrors($validate);
+        }
+
+        $user = User::find($request->id);
+
+        $user->firstname = $request->firstname;
+        $user->lastname = $request->lastname;
+        $user->email = $request->email;
+        //$user->password = $request->password;
+        $user->role = $request->role;
+        $user->is_admin = $request->is_admin;
+        $user->save();
+
+        if(!$user){ // If for some reason user isn't created, fire error message
+            return back()->with('failure', 'An error occured while saving user. Fill all fields!!!');
+        }
+
+        return back()->with('success', 'Updated user '.$request->firstname);
     }
 
     /**

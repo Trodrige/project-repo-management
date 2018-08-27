@@ -6,6 +6,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Project;
 use App\User;
+use Illuminate\Support\Facades\Validator;
+use DB;
+use Hash;
+use App\FileUpload;
+ use File;
+ use Storage;
 
 class ProjectController extends Controller
 {
@@ -19,6 +25,14 @@ class ProjectController extends Controller
         $data = Project::orderBy('id','ASC')->paginate(20);
         $user = User::all();
         return view('project.index',compact('data'))
+            ->with(['user' => $user, 'i' => ($request->input('page', 1) - 1) * 20]);
+    }
+
+    public function myprojects(Request $request)
+    {
+        $myprojects = Project::where('owner_id', Auth::user()->id)->orderBy('id','ASC')->paginate(20);
+        $user = User::all();
+        return view('myprojects',compact('myprojects'))
             ->with(['user' => $user, 'i' => ($request->input('page', 1) - 1) * 20]);
     }
 
@@ -183,7 +197,31 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request->all());
+        $validate = Validator::make($request->all(), [
+            'title' => 'required|max:255',
+            'description' => 'required|max:1440',
+            'type' => 'required|max:255',
+        ]);
+
+        if($validate->fails()){
+            return redirect()->route('home')->withErrors($validate);
+        }
         //
+        $doc = new Project;
+     	$doc->title = $request->title;
+        $doc->description = $request->description;
+        $doc->type = $request->type;
+        $doc->date_validated = now();
+        $doc->filename_pdf = FileUpload::savefile($request,'filename_pdf');
+        $doc->zip_filename = FileUpload::savezip($request,'zip_filename');
+        $doc->owner_id = $request->owner_id;
+        $doc->admin_id = $request->admin_id;
+     	if ($doc->save()) {
+             //return view('home');
+             return redirect()->route('home')->with('success','Project created successfully.');
+     	}
+        return redirect()->back()->with('failure', 'Failure saving project!!!');
     }
 
     /**
@@ -229,5 +267,8 @@ class ProjectController extends Controller
     public function destroy($id)
     {
         //
+        $project = Project::find($id);
+         $project->delete();
+         return redirect()->route('myprojects')->with('success','Project deleted successfully.');
     }
 }

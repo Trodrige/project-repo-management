@@ -12,12 +12,6 @@
     </div>
 </div>
 
-@if ($message = Session::get('success'))
-    <div class="alert alert-success">
-        <p>{{ $message }}</p>
-    </div>
-@endif
-
 @if(count($data) <= 0)
     @section('message')
         <div class="alert  alert-info alert-dismissible fade show" role="alert">
@@ -40,6 +34,22 @@
                         <li>{{ $error }}</li>
                     @endforeach
                 </ul>
+            </div>
+        @endif
+        @if ($message = Session::get('success'))
+            <div class="alert alert-success alert-dismissible fade show" id="session-message" role="alert">
+                <span class="badge badge-pill badge-success">Success!</span> {{ $message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
+        @if ($message = Session::get('failure'))
+            <div class="alert alert-danger alert-dismissible fade show" id="session-message" role="alert">
+                <span class="badge badge-pill badge-danger">Success!</span> {{ $message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
         @endif
     @endsection
@@ -67,7 +77,7 @@
             <td>
                <a class="btn btn-info" href="{{ route('users',$user->id) }}">Show</a>
                <!--<a class="btn btn-primary" href="{{ route('users',$user->id) }}">Edit</a> -->
-               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit-admin">Edit</button>
+               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit-admin" data-id="{{ $user->id }}" data-firstname="{{ $user->firstname }}" data-lastname="{{ $user->lastname }}" data-email="{{ $user->email }}" data-role="{{ $user->role }}" data-is_admin="{{ $user->is_admin }}">Edit</button>
                <a class="btn btn-danger" href="{{ route('users',$user->id) }}">Delete</a>
             </td>
         </tr>
@@ -160,7 +170,7 @@
                             </div>
                             <hr />
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                            <button type="submit" name="submit" class="btn btn-info">Save</button>
+                            <button type="submit" name="submit" class="btn btn-info">Update</button>
                         </form>
                     </div>
                 </div>
@@ -169,31 +179,82 @@
 <!-- /#add-admin -->
 
 
-
+<!-- Edit admin modal -->
 <div class="modal fade" id="edit-admin" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-md" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="mediumModalLabel">Medium Modal</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <p>
-                                    There are three species of zebras: the plains zebra, the mountain zebra and the Grévy's zebra. The plains zebra
-                                    and the mountain zebra belong to the subgenus Hippotigris, but Grévy's zebra is the sole species of subgenus
-                                    Dolichohippus. The latter resembles an ass, to which it is closely related, while the former two are more
-                                    horse-like. All three belong to the genus Equus, along with other living equids.
-                                </p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                <button type="button" class="btn btn-primary">Confirm</button>
-                            </div>
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="mediumModalLabel">Edit this user</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="edit-admin-form" action="" id="edit-admin-form" method="post">
+                    {{ csrf_field() }}
+                    {{ method_field('PATCH') }}
+                    <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
+                    <div class="form-group"><input type="hidden" name="id" id="id"></div>
+                    <div class="form-group row">
+                        <label for="firstname" class="col-sm-2 col-form-label">{{ __('Firstname') }}</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="firstname" class="form-control" id="firstname">
+                            @if ($errors->has('firstname'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('firstname') }}</strong>
+                                </span>
+                            @endif
                         </div>
                     </div>
-                </div>
+                    <div class="form-group row">
+                        <label for="lastname" class="col-sm-2 col-form-label">{{ __('Lastname') }}</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="lastname" class="form-control" id="lastname">
+                            @if ($errors->has('lastname'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('lastname') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="email" class="col-sm-2 col-form-label">{{ __('Email') }}</label>
+                        <div class="col-sm-10">
+                            <input type="email" name="email" class="form-control" id="email">
+                            @if ($errors->has('email'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('email') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="role" class="col-sm-2 col-form-label">{{ __('Role') }}</label>
+                        <div class="col-sm-10">
+                            <select id="role" class="form-control" name="role">
+                                <option value="admin">{{ __('Admin') }}</option>
+                                <option value="student">{{ __('Student') }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="is_admin" class="col-sm-2 col-form-label">{{ __('Status') }}</label>
+                        <div class="col-sm-10">
+                            <select id="is_admin" class="form-control" name="is_admin">
+                                <option value="valid">{{ __('Valid') }}</option>
+                                <option value="invalid">{{ __('Invalid') }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <hr />
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                    <button type="submit" name="submit" class="btn btn-info">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- edit-admin -->
 
 {!! $data->render() !!}
 @endsection
