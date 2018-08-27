@@ -43,6 +43,7 @@ class ProjectController extends Controller
      */
     public function validatedProjects(Request $request)
     {
+        //dd($request->all());
         $data = Project::where('date_validated', '>', '0000-00-00')->orderBy('id','ASC')->paginate(20);
         $user = User::all();
         return view('project.index',compact('data'))

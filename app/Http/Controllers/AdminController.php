@@ -2,8 +2,10 @@
 namespace App\Http\Controllers;
 
 use DB;
+use Auth;
 use Hash;
 use App\User;
+use App\Project;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Validator;
@@ -170,8 +172,32 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
         //
+        $user = User::find($request->id);
+        $projects = Project::where('admin_id', $request->id)->get();
+        foreach ($projects as $key => $project) {
+            $project->owner_id = Auth::user()->id;
+            $project->admin_id = Auth::user()->id;
+            $project->save();
+        }
+
+        $projects2 = Project::where('owner_id', $request->id)->get();
+        foreach ($projects2 as $key => $project) {
+            $project->owner_id = Auth::user()->id;
+            $project->admin_id = Auth::user()->id;
+            $project->save();
+        }
+
+        $user->delete();
+        //dd($projects2);
+        //$project->delete();
+
+        if(!$user){ // If for some reason system feature isn't created, fire error message
+            return back()->with('failure', 'An error occured while deleting user. Try again!!!');
+        }
+
+        return back()->with('success', 'Deleted user, '.$user->firstname);
     }
 }

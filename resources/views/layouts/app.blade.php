@@ -421,6 +421,24 @@
             });
         });
 
+        /*** Delete user ***/
+        $('#delete-admin').on('show.bs.modal', function(e){
+            $('#delete-admin #firstname').text($(e.relatedTarget).data('firstname'));
+            $('#delete-admin-form').submit(function(){
+                var id = $('#delete-admin #id').val($(e.relatedTarget).data('id'));
+                $("#delete-admin-form").attr("action", "admin/" + id);
+            });
+        });
+
+        /*** Delete project ***/
+        $('#delete-project').on('show.bs.modal', function(e){
+            $('#delete-project #title').text($(e.relatedTarget).data('title'));
+            $('#delete-project-form').submit(function(){
+                var id = $('#delete-project #id').val($(e.relatedTarget).data('id'));
+                $("#delete-project-form").attr("action", "myprojects/delete-project" + id);
+            });
+        });
+
 
         });
 

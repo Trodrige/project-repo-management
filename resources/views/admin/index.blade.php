@@ -77,8 +77,8 @@
             <td>
                <a class="btn btn-info" href="{{ route('users',$user->id) }}">Show</a>
                <!--<a class="btn btn-primary" href="{{ route('users',$user->id) }}">Edit</a> -->
-               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit-admin" data-id="{{ $user->id }}" data-firstname="{{ $user->firstname }}" data-lastname="{{ $user->lastname }}" data-email="{{ $user->email }}" data-role="{{ $user->role }}" data-is_admin="{{ $user->is_admin }}">Edit</button>
-               <a class="btn btn-danger" href="{{ route('users',$user->id) }}">Delete</a>
+               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit-admin" data-id="{{ $user->id }}" data-firstname="{{ $user->firstname }}" data-lastname="{{ $user->lastname }}" data-email="{{ $user->email }}" data-role="{{ $user->role }}" data-is_admin="{{ $user->is_admin }}"><i class="fa fa-pencil"></i> Edit</button>
+                <button id="deleteButton" type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete-admin" data-id ="{{ $user->id }}" data-firstname="{{ $user->firstname }}"><i class="fa fa-trash-o"></i> Delete</button>
             </td>
         </tr>
         @endforeach
@@ -255,6 +255,34 @@
     </div>
 </div>
 <!-- edit-admin -->
+
+<!-- Delete admin modal-->
+        <div class="modal fade" id="delete-admin" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle"><b>Delete User</b></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="delete-admin-form" action="" id="delete-admin-form" method="post">
+                            {{ csrf_field() }}
+                            {{ method_field('DELETE') }}
+                            <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
+                            <div class="form-group"><input type="hidden" name="id" id="id"></div>
+                            <div class="form-group">
+                                <p>Are you sure you want to delete <strong><span id="firstname"></span> ?</strong></p>
+                            </div>
+                            <hr />
+                            <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+                            <button type="submit" name="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /#delete-admin -->
 
 {!! $data->render() !!}
 @endsection

@@ -63,13 +63,22 @@
             @else
                 <td>Validated on: <label class="badge badge-warning">{{ $project->date_validated }}</label></td>
             @endif
-            <td>{{ $user->find($project->owner_id)->firstname }}&nbsp;<label class="badge badge-success">S</label></td>
-            <td>{{ $user->find($project->admin_id)->firstname }}&nbsp;<label class="badge badge-info">A</label></td>
+            @if(!empty($project->owner_id))
+                <td>{{ $user->find($project->owner_id)->firstname }}&nbsp;<label class="badge badge-success">S</label></td>
+            @else
+                <td>VACACNT&nbsp;<label class="badge badge-success">S</label></td>
+            @endif
+            @if($user->find($project->admin_id)->firstname == NULL)
+                <td>{{ $user->find($project->admin_id)->firstname }}&nbsp;<label class="badge badge-info">A</label></td>
+            @else
+                <td>VACACNT&nbsp;<label class="badge badge-info">A</label></td>
+            @endif
             <td>
                <a class="btn btn-info" href="{{ route('projects',$project->id) }}">Show</a>
                <!--<a class="btn btn-primary" href="{{ route('users',$project->id) }}">Edit</a> -->
-               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit-admin">Edit</button>
-               <a class="btn btn-danger" href="{{ route('projects',$project->id) }}">Delete</a>
+
+               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit-project" data-id="{{ $project->id }}" data-title="{{ $project->title }}" data-type="{{ $project->type }}" data-date_validated="{{ $project->date_validated }}"><i class="fa fa-pencil"></i> Edit</button>
+                <button id="deleteButton" type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete-project" data-id ="{{ $project->id }}" data-title="{{ $project->title }}"><i class="fa fa-trash-o"></i> Delete</button>
             </td>
         </tr>
         @endforeach
@@ -100,6 +109,35 @@
                         </div>
                     </div>
                 </div>
+
+
+                <!-- Delete project modal-->
+                        <div class="modal fade" id="delete-project" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle"><b>Delete User</b></h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form class="delete-project-form" action="" id="delete-project-form" method="post">
+                                            {{ csrf_field() }}
+                                            {{ method_field('DELETE') }}
+                                            <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
+                                            <div class="form-group"><input type="hidden" name="id" id="id"></div>
+                                            <div class="form-group">
+                                                <p>Are you sure you want to delete <strong><span id="title"></span> ?</strong></p>
+                                            </div>
+                                            <hr />
+                                            <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+                                            <button type="submit" name="submit" class="btn btn-danger">Delete</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- /#delete-project -->
 
 {!! $data->render() !!}
 @endsection

@@ -15,7 +15,7 @@ class Project extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'description', 'type', 'date_validated', 'zip_filename', 'filename_pdf', 'owner_id'
+        'title', 'description', 'type', 'date_validated', 'zip_filename', 'filename_pdf', 'owner_id', 'admin_id'
     ];
 
     /**

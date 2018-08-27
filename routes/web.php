@@ -43,7 +43,7 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::post('/admin', 'AdminController@store')->middleware('is_admin')->name('createadmin');
     Route::patch('/admin/{id}', 'AdminController@update')->middleware('is_admin')->name('updateadmin');
-    Route::delete('/admin/{}', 'AdminController@destroy')->middleware('is_admin')->name('deleteadmin');
+    Route::delete('/admin/{id}', 'AdminController@destroy')->middleware('is_admin')->name('deleteadmin');
 
 
     Route::get('/students', 'StudentController@index')->middleware('is_admin')->name('students');
