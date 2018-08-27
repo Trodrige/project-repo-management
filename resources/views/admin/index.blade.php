@@ -28,6 +28,22 @@
         </div>
     @endsection
 @else
+    @section('message')
+        @if($errors->any())
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <span class="badge badge-pill badge-danger">Error</span> Correct the following errors and fill the form again.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+    @endsection
+
     <table class="table table-bordered">
         <tr>
             <th>No</th>

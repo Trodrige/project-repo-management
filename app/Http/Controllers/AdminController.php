@@ -1,12 +1,12 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\User;
-use Spatie\Permission\Models\Role;
 use DB;
 use Hash;
+use App\User;
+use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
 {
@@ -23,7 +23,7 @@ class AdminController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the admins.
      *
      * @return \Illuminate\Http\Response
      */
@@ -69,14 +69,37 @@ class AdminController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created admin in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        //dd($request);
+        $validate = Validator::make($request->all(), [
+            'firstname' => 'required|max:255',
+            'lastname' => 'required|max:255',
+            'email' => 'required|email|unique:users,email|max:255',
+            'password' => 'required|confirmed|min:6',
+        ]);
+
+        if($validate->fails()){
+            return redirect()->route('admins')->withErrors($validate);
+        }
+
+        $user = new User;
+
+        $user->firstname = $request->firstname;
+        $user->lastname = $request->lastname;
+        $user->email = $request->email;
+        $user->password = $request->password;
+        $user->role = 'admin';
+        $user->is_admin = 'valid';
+
+        $user->save();
+
+        return redirect()->route('admins');
     }
 
     /**
