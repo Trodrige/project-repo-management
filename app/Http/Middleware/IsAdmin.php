@@ -17,7 +17,7 @@ class IsAdmin
     {
         //dd($request->user()->is_admin);
         // Check if the user's admin account has been validated
-        if ($request->user()->is_admin != 'valid') {
+    if ($request->user()->is_admin != 'valid' /* && $request->user()->role != 'admin' */) {
             return redirect('home')->with('failure', 'You are not allowed to access this page');
         }
 

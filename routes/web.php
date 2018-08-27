@@ -51,21 +51,23 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/internshipstudents', 'StudentController@internshipStudents')->middleware('is_admin')->name('internshipstudents');
 
 
-    Route::get('/projects', 'ProjectController@index')->middleware('is_admin')->name('projects');
-    Route::get('/validatedprojects', 'ProjectController@validatedProjects')->middleware('is_admin')->name('validatedprojects');
-    Route::get('/wipprojects', 'ProjectController@wipProjects')->middleware('is_admin')->name('wipprojects');
+    Route::get('/projects', 'ProjectController@index')->name('projects');
+    Route::get('/validatedprojects', 'ProjectController@validatedProjects')->name('validatedprojects');
+    Route::get('/wipprojects', 'ProjectController@wipProjects')->name('wipprojects');
 
-    Route::get('/finalyearprojects', 'ProjectController@finalYearProjects')->middleware('is_admin')->name('finalyearprojects');
-    Route::get('/validatedfypprojects', 'ProjectController@validatedFypProjects')->middleware('is_admin')->name('validatedfypprojects');
-    Route::get('/wipfypprojects', 'ProjectController@wipFypProjects')->middleware('is_admin')->name('wipfypprojects');
+    Route::get('/finalyearprojects', 'ProjectController@finalYearProjects')->name('finalyearprojects');
+    Route::get('/validatedfypprojects', 'ProjectController@validatedFypProjects')->name('validatedfypprojects');
+    Route::get('/wipfypprojects', 'ProjectController@wipFypProjects')->name('wipfypprojects');
 
-    Route::get('/internshipprojects', 'ProjectController@internshipProjects')->middleware('is_admin')->name('internshipprojects');
-    Route::get('/validatedinternshipprojects', 'ProjectController@validatedInternshipProjects')->middleware('is_admin')->name('validatedinternshipprojects');
-    Route::get('/wipinternshipprojects', 'ProjectController@wipInternshipProjects')->middleware('is_admin')->name('wipinternshipprojects');
+    Route::get('/internshipprojects', 'ProjectController@internshipProjects')->name('internshipprojects');
+    Route::get('/validatedinternshipprojects', 'ProjectController@validatedInternshipProjects')->name('validatedinternshipprojects');
+    Route::get('/wipinternshipprojects', 'ProjectController@wipInternshipProjects')->name('wipinternshipprojects');
 
-    Route::get('/courseprojects', 'ProjectController@courseProjects')->middleware('is_admin')->name('courseprojects');
-    Route::get('/validatedcourseprojects', 'ProjectController@validatedCourseProjects')->middleware('is_admin')->name('validatedcourseprojects');
-    Route::get('/wipcourseprojects', 'ProjectController@wipCourseProjects')->middleware('is_admin')->name('wipcourseprojects');
+    Route::get('/courseprojects', 'ProjectController@courseProjects')->name('courseprojects');
+    Route::get('/validatedcourseprojects', 'ProjectController@validatedCourseProjects')->name('validatedcourseprojects');
+    Route::get('/wipcourseprojects', 'ProjectController@wipCourseProjects')->name('wipcourseprojects');
+
+    Route::patch('/project/{id}', 'ProjectController@update')->middleware('is_admin')->name('updateproject');
 
      Route::get('/myprojects', 'ProjectController@myprojects')->name('myprojects');
      Route::get('/{filename}', 'DownloadController@getFile')->name('getfile');

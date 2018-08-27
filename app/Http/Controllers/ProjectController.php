@@ -31,7 +31,8 @@ class ProjectController extends Controller
     public function myprojects(Request $request)
     {
         $myprojects = Project::where('owner_id', Auth::user()->id)->orderBy('id','ASC')->paginate(20);
-        $user = User::all();
+        //$user = User::all();
+        $user = User::find(Auth::user()->id);
         return view('myprojects',compact('myprojects'))
             ->with(['user' => $user, 'i' => ($request->input('page', 1) - 1) * 20]);
     }
@@ -256,7 +257,29 @@ class ProjectController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //dd($request->all());
+        $validate = Validator::make($request->all(), [
+            'title' => 'required|max:255',
+            'description' => 'required|max:1440',
+            'type' => 'required|max:255',
+        ]);
+
+        if($validate->fails()){
+            return redirect()->back()->withErrors($validate);
+        }
+
+        $project = Project::find($request->id);
+
+        $project->title = $request->title;
+        $project->description = $request->description;
+        $project->type = $request->type;
+        $project->save();
+
+        if(!$project){ // If for some reason user isn't created, fire error message
+            return back()->with('failure', 'An error occured while saving project. Fill all fields!!!');
+        }
+
+        return back()->with('success', 'Updated project '.$request->title);
     }
 
     /**
@@ -265,10 +288,11 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
         //
-        $project = Project::find($id);
+        //dd($id);
+        $project = Project::find($request->id);
          $project->delete();
          return redirect()->route('myprojects')->with('success','Project deleted successfully.');
     }

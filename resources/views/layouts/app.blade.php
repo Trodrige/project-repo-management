@@ -99,21 +99,22 @@
                      </li>
                      <li>
                          <a href="{{ route('projects') }}"><i class="menu-icon fa fa-archive"></i> All projects</a>
-
-
-                    <h3 class="menu-title">Users</h3><!-- /.menu-title -->
-                    <li>
-                        <a href="{{ route('users') }}"> <i class="menu-icon fa fa-users"></i>All users</a>
-                    </li>
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-adn"></i>Admins</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-suitcase"></i><a href="{{ route('admins') }}">All admins</a></li>
-                            <li><i class="fa fa-check-square-o"></i><a href="{{ route('validadmins') }}">Valid admins</a></li>
-                            <li><i class="fa fa-id-badge"></i><a href="{{ route('pendingadmins') }}">Pending validation</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="{{ route('students') }}"> <i class="menu-icon fa fa-male"></i>Students</a></li>
+                     </li>
+                     @if(Auth::user()->role == 'admin')
+                        <h3 class="menu-title">Users</h3><!-- /.menu-title -->
+                        <li>
+                            <a href="{{ route('users') }}"> <i class="menu-icon fa fa-users"></i>All users</a>
+                        </li>
+                        <li class="menu-item-has-children dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-adn"></i>Admins</a>
+                            <ul class="sub-menu children dropdown-menu">
+                                <li><i class="fa fa-suitcase"></i><a href="{{ route('admins') }}">All admins</a></li>
+                                <li><i class="fa fa-check-square-o"></i><a href="{{ route('validadmins') }}">Valid admins</a></li>
+                                <li><i class="fa fa-id-badge"></i><a href="{{ route('pendingadmins') }}">Pending validation</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="{{ route('students') }}"> <i class="menu-icon fa fa-male"></i>Students</a></li>
+                    @endif
                     <!-- <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Students</a>
                         <ul class="sub-menu children dropdown-menu">
@@ -162,14 +163,15 @@
                     <li>
                         <a href="{{ route('adminprofile') }}"> <i class="menu-icon fa fa-user"></i>Profile</a>
                     </li>
+                    @if(Auth::user()->role == 'admin')
                     <li>
                         <a href="{{ route('settings') }}"> <i class="menu-icon fa fa-gears"></i>Settings</a>
                     </li>
+                    @endif
                     <li>
-                        <a class="nav-link dropdown-item" href="{{ route('logout') }}"
+                        <a href="{{ route('logout') }}"
                            onclick="event.preventDefault();
-                                         document.getElementById('logout-form').submit();"> <i class="menu-icon fa fa-lock"></i>
-                            {{ __('Logout') }}
+                                         document.getElementById('logout-form').submit();"> <i class="menu-icon fa fa-lock"></i>{{ __('Logout') }}
                         </a>
                     </li>
                 </ul>
@@ -430,12 +432,26 @@
             });
         });
 
+
+        $('#edit-project').on('show.bs.modal', function(e){
+        $('#edit-project #title').val($(e.relatedTarget).data('title'));
+        $('#edit-project #description').val($(e.relatedTarget).data('description'));
+        $('#edit-project #type').val($(e.relatedTarget).data('type'));
+        $('#edit-project-form').submit(function(){
+            var id = $('#edit-project #id').val($(e.relatedTarget).data('id'));
+            var newTitle = $('#edit-project #title').val();
+            var newDescription = $('#edit-project #description').val();
+            var newType = $('#edit-project #type').val();
+            $("#edit-project-form").attr("action", "/project/" + id );
+        });
+    });
+
         /*** Delete project ***/
         $('#delete-project').on('show.bs.modal', function(e){
             $('#delete-project #title').text($(e.relatedTarget).data('title'));
             $('#delete-project-form').submit(function(){
                 var id = $('#delete-project #id').val($(e.relatedTarget).data('id'));
-                $("#delete-project-form").attr("action", "myprojects/delete-project" + id);
+                $("#delete-project-form").attr("action", "myprojects/delete-project/" + id);
             });
         });
 

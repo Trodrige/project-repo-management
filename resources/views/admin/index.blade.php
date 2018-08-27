@@ -75,7 +75,7 @@
                 <td><label class="badge badge-warning">{{ $user->is_admin }}</label></td>
             @endif
             <td>
-               <a class="btn btn-info" href="{{ route('users',$user->id) }}">Show</a>
+               <a class="btn btn-info" href="{{ route('users',$user->id) }}"><i class="fa fa-eye"></i>Show</a>
                <!--<a class="btn btn-primary" href="{{ route('users',$user->id) }}">Edit</a> -->
                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit-admin" data-id="{{ $user->id }}" data-firstname="{{ $user->firstname }}" data-lastname="{{ $user->lastname }}" data-email="{{ $user->email }}" data-role="{{ $user->role }}" data-is_admin="{{ $user->is_admin }}"><i class="fa fa-pencil"></i> Edit</button>
                 <button id="deleteButton" type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete-admin" data-id ="{{ $user->id }}" data-firstname="{{ $user->firstname }}"><i class="fa fa-trash-o"></i> Delete</button>

@@ -41,14 +41,14 @@ class HomeController extends Controller
         $num_of_projects = Project::all()->count();
         $num_of_validated_projects = Project::where('date_validated', '>', '0000-00-00')->count();
         $num_of_pending_projects = Project::where('date_validated', '0000-00-00')->count();
-        $recent_projects = Project::all()->take(20);
+        $recent_projects = Project::all()->take(10);
         $comments = Comment::all()->count();
         $permissions = Permission::all()->count();
-        $data = Project::orderBy('id','ASC')->paginate(20);
+        $data = Project::orderBy('id','ASC')->paginate(10);
         //dd($valid_admins);
         return view('home',compact('data'))
             ->with([
-                'i' => ($request->input('page', 1) - 1) * 20,
+                'i' => ($request->input('page', 1) - 1) * 10,
                 'num_of_users' => $num_of_users,
                 'num_of_students' => $num_of_students,
                 'num_of_admins' => $num_of_admins,

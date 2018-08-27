@@ -123,6 +123,7 @@
             </div>
         </div> <!-- /. row -->
 
+        @if(Auth::user()->role == 'admin')
         <div class="row">
             <div class="col-sm-12">
                 <div class="card-group">
@@ -208,7 +209,7 @@
 
                     <div class="col-lg-3 col-md-6">
                         <div class="card">
-                            <a href="#">
+                            <a href="/admins#add-admin">
                                 <div class="card-body">
                                     <div class="stat-widget-one">
                                         <div class="stat-icon dib"><i class="fa fa-user-plus text-primary border-primary"></i></div>
@@ -256,6 +257,7 @@
                 </div>
             </div>
         </div>
+        @endif
 
         <div class="row">
             <div class="col-sm-12">
@@ -275,7 +277,7 @@
 
                     <div class="col-lg-3 col-md-6">
                         <div class="card">
-                            <a href="#">
+                            <a href="/home#upload">
                                 <div class="card-body">
                                     <div class="stat-widget-one">
                                         <div class="stat-icon dib"><i class="ti-plus text-primary border-primary"></i></div>
@@ -353,9 +355,7 @@
                 @endforeach
             </tbody>
         </table>
-        {{ $data->links() }}
-
-
+        {!! $data->render() !!}
     </div>
 
 
