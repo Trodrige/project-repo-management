@@ -11,11 +11,41 @@ use Illuminate\Support\Facades\Validator;
 use DB;
 use Hash;
 use App\FileUpload;
- use File;
- use Storage;
+use File;
+use Storage;
+use Twilio\Rest\Client;
+use Twilio\Jwt\ClientToken;
 
 class ProjectController extends Controller
 {
+
+    private function sendSMS($to_number, $from_number, $message)
+    {
+        $accountSid = config('app.twilio')['TWILIO_ACCOUNT_SID'];
+        $authToken  = config('app.twilio')['TWILIO_AUTH_TOKEN'];
+        $appSid     = config('app.twilio')['TWILIO_APP_SID'];
+        $client = new Client($accountSid, $authToken);
+        try
+        {
+            // Use the client to do fun stuff like send text messages!
+            $client->messages->create(
+            // the number you'd like to send the message to
+                $to_number,
+               array(
+                     // A Twilio phone number you purchased at twilio.com/console
+                     'from' => $from_number,
+                     // the body of the text message you'd like to send
+                     'body' => $message
+                 )
+             );
+       }
+       catch (Exception $e)
+       {
+            echo "Error: " . $e->getMessage();
+        }
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -23,6 +53,7 @@ class ProjectController extends Controller
      */
     public function index(Request $request)
     {
+        $this->sendSMS('+237673574562', '+15867881191', 'Thank you bro!!!');
         $data = Project::orderBy('id','ASC')->paginate(20);
         $user = User::all();
         return view('project.index',compact('data'))
