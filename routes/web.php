@@ -70,6 +70,11 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/validatedcourseprojects', 'ProjectController@validatedCourseProjects')->name('validatedcourseprojects');
     Route::get('/wipcourseprojects', 'ProjectController@wipCourseProjects')->name('wipcourseprojects');
 
+    Route::get('/studentrequests', 'ProjectController@studentRequests')->middleware('is_admin')->name('studentrequests');
+    Route::post('/addrequest', 'ProjectController@addRequest')->name('addrequest');
+    Route::post('/grantrequest', 'ProjectController@grantRequest')->middleware('is_admin')->name('grantrequest');
+    Route::delete('/deleterequest/{id}', 'ProjectController@deleteRequest')->middleware('is_admin')->name('deleterequest');
+
     Route::patch('/project/{id}', 'ProjectController@update')->middleware('is_admin')->name('updateproject');
 
      Route::get('/myprojects', 'ProjectController@myprojects')->name('myprojects');

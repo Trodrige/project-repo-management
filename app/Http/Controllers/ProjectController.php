@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Project;
 use App\User;
+use App\Studentrequest;
 use Illuminate\Support\Facades\Validator;
 use DB;
 use Hash;
@@ -179,6 +180,80 @@ class ProjectController extends Controller
         $user = User::all();
         return view('project.index',compact('data'))
             ->with(['user' => $user, 'i' => ($request->input('page', 1) - 1) * 20]);
+    }
+
+    /**
+     * Show the list of students' requests.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function studentRequests(Request $request)
+    {
+        $data = Studentrequest::paginate(20);
+        $user = User::all();
+        $project = Project::all();
+        //dd($data);
+        return view('admin.studentrequests', compact('data'))
+        ->with(['user' => $user, 'project' => $project, 'i' => ($request->input('page', 1) - 1) * 20]);
+    }
+
+    /**
+     * Store new student requests.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function addRequest(Request $request)
+    {
+        //dd($request->all());
+        $studentrequest = new Studentrequest;
+
+        $studentrequest->status = 'pending';
+        $studentrequest->student_id = Auth::user()->id;
+        $studentrequest->project_id = $request->project;
+
+        $studentrequest->save();
+
+        return redirect()->back()->with('success', 'Your request has been sent.');
+    }
+
+    /**
+     * Store new student requests.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function grantRequest(Request $request)
+    {
+        //dd($request->all());
+        $studentrequest = Studentrequest::find($request->studentrequest);
+        $student = User::find($studentrequest->student_id);
+        $project = Project::find($studentrequest->project_id);
+        //dd($studentrequest);
+        $studentrequest->status = 'granted';
+        $studentrequest->save();
+
+        $project->owner_id = $studentrequest->student_id;
+        $project->save();
+
+        return redirect()->back()->with('success', 'Your request has been sent.');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function deleteRequest(Request $request)
+    {
+        $studentrequest = Studentrequest::find($request->id);
+
+        $studentrequest->delete();
+
+        if(!$studentrequest){ // If for some reason system feature isn't created, fire error message
+            return back()->with('failure', 'An error occured while deleting student request. Try again!!!');
+        }
+
+        return back()->with('success', 'Deleted student request, '.$studentrequest->title);
     }
 
     /**

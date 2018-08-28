@@ -70,9 +70,16 @@
             <td>
                <a class="btn btn-info" href="{{ route('projects',$project->id) }}"><i class="fa fa-eye"></i> See</a>
                <!--<a class="btn btn-primary" href="{{ route('users',$project->id) }}">Edit</a> -->
-
                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit-project" data-id="{{ $project->id }}" data-title="{{ $project->title }}" data-description="{{ $project->description }}" data-type="{{ $project->type }}" data-date_validated="{{ $project->date_validated }}"><i class="fa fa-pencil"></i> Edit</button>
                 <button id="deleteButton" type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete-project" data-id ="{{ $project->id }}" data-title="{{ $project->title }}"><i class="fa fa-trash-o"></i> Delete</button>
+                @if(Auth::user()->role == 'student')
+                <form action="{{ route('addrequest') }}" method="post">
+                    {{ csrf_field() }}
+                    <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
+                    <input type="hidden" name="project" class="form-control" id="project" value="{{ $project->id }}">
+                    <button type="submit" name="submit" class="btn btn-success btn-xs">Request</button>
+                </form>
+                @endif
             </td>
         </tr>
         @endforeach

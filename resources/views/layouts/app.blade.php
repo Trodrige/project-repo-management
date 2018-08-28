@@ -100,7 +100,11 @@
                      <li>
                          <a href="{{ route('projects') }}"><i class="menu-icon fa fa-archive"></i> All projects</a>
                      </li>
+
                      @if(Auth::user()->role == 'admin')
+                     <li>
+                         <a href="{{ route('studentrequests') }}"><i class="menu-icon fa fa-archive"></i> Student's requests</a>
+                     </li>
                         <h3 class="menu-title">Users</h3><!-- /.menu-title -->
                         <li>
                             <a href="{{ route('users') }}"> <i class="menu-icon fa fa-users"></i>All users</a>
@@ -452,6 +456,15 @@
             $('#delete-project-form').submit(function(){
                 var id = $('#delete-project #id').val($(e.relatedTarget).data('id'));
                 $("#delete-project-form").attr("action", "myprojects/delete-project/" + id);
+            });
+        });
+
+        /*** Delete request ***/
+        $('#delete-request').on('show.bs.modal', function(e){
+            $('#delete-request #title').text($(e.relatedTarget).data('title'));
+            $('#delete-request-form').submit(function(){
+                var id = $('#delete-request #id').val($(e.relatedTarget).data('id'));
+                $("#delete-request-form").attr("action", "deleterequest/" + id);
             });
         });
 

@@ -17,6 +17,7 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('firstname')->comment = "The user's first name.";
             $table->string('lastname')->comment = "The user's last name";
+            $table->string('phone',15)->unique()->comment = "The user's phone number";
             $table->string('email')->unique()->comment = "The user's email.";
             $table->string('role')->comment = "The user's role, student or superadmin or admin.";
             $table->string('password')->comment = "The user's password.";
