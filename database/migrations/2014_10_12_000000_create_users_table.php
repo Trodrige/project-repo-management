@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique()->comment = "The user's email.";
             $table->string('password')->comment = "The user's password.";
             $table->string('role')->comment = "The user's role, student or superadmin or admin.";
-            $table->string('is_admin')->default('invalid')->comment = "Tell whether the admin account has been validated by superadmin or not";
+            $table->string('type')->default('default')->comment = "Tell whether the admin account has been validated by superadmin or not";
 
             $table->rememberToken();
             $table->softDeletes();

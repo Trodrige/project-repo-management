@@ -45,7 +45,7 @@
                     @endforeach
                 </tbody>
             </table>
-            {{ $projects->links() }}
+            
         </div>
     </div>
 </div>
@@ -66,7 +66,12 @@
                 </div>
                 <div class="form-group">
                     <label for="street" class=" form-control-label">Type</label>
-                    <input type="text" id="type" name="type" placeholder="Provide the type of your project, example Final year project or Internship project" class="form-control">
+                    <!--<input type="text" id="type" name="type" placeholder="Provide the type of your project, example Final year project or Internship project" class="form-control">-->
+                    <select name="type" id="type">
+                        <option value="finalyear">Final Year</option>
+                        <option value="internship">Internship</option>
+                        <option value="courseproject">Course</option>
+                    </select>
                 </div>
                 <div class="row form-group">
                     <div class="col-8">
@@ -83,14 +88,18 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <input type="hidden" name="owner_id" id="owner_id" value="{{ Auth::id() }}">
+                    <input type="hidden" name="user_id" id="user_id" value="{{ Auth::id() }}">
                 </div>
+                <!--
                 <div class="form-group">
                     <input type="hidden" name="admin_id " id="admin_id " value="{{ Auth::id() }}">
                 </div>
+                -->
+                <!--
                 <div class="form-group">
                     <input type="hidden" name="date_validated" id="date_validated">
                 </div>
+                -->
             </div>
         </div>
     </div>

@@ -15,7 +15,7 @@ class Project extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'description', 'type', 'date_validated', 'zip_filename', 'filename_pdf', 'owner_id'
+        'title', 'description', 'type', 'zip_filename', 'filename_pdf', 'user_id', 'date_validated'
     ];
 
     /**
@@ -33,6 +33,16 @@ class Project extends Model
      public function user()
      {
          return $this->belongsTo('App\User');
+     }
+
+     public function validprojects()
+     {
+         return $this->hasOne('App\Validproject');
+     }
+
+     public function invalidprojects()
+     {
+         return $this->belongsToMany('App\Invalidproject');
      }
 
      /**

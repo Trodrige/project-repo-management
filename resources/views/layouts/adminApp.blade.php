@@ -82,16 +82,17 @@
             </div>
 
             <div id="main-menu" class="main-menu collapse navbar-collapse">
-            
-                <ul class="nav navbar-nav">
+            <ul class="nav navbar-nav">
                     <li class="active">
                         <a href="#"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
                     </li>
+                    <h3 class="menu-title">Basic Project Management</h3>
+                    <li class="menu-item-has-children dropdown">
                     <li>
                         <a href="/home#upload"><i class="menu-icon fa fa-upload"></i> Upload Project</a>
                     </li>
                     <li>
-                        <a href="{{url('/myprojects')}}"><i class="menu-icon fa fa-download"></i> Download Project</a>
+                        <a href="{{url('/myprojects')}}"><i class="menu-icon fa fa-download"></i> Download project</a>
                     </li>
                     <li>
                         <a href="{{url('/myprojects')}}"><i class="menu-icon fa fa-folder-open"></i> My Validated Projects</a>
@@ -100,9 +101,32 @@
                         <a href="{{url('/my-invalid-projects')}}"><i class="menu-icon fa fa-folder-open"></i> My Rejected Projects</a>
                     </li>
                     <li>
-                        <a href="/home#allProjects"><i class="menu-icon fa fa-archive"></i> All Projects</a>
+                        <a href="/home#allProjects"><i class="menu-icon fa fa-archive"></i> All projects</a>
                     </li>
+
+                    
+
+                    <li class="menu-item-has-children dropdown">
+                    <h3 class="menu-title">Admin Project Management</h3>
+                        <li>
+                            <a href="/"> <i class="menu-icon ti-email"></i>Validate Projects </a>
+                        </li>
+                        <li>
+                        <a href="{{url('/projects')}}"><i class="menu-icon fa fa-download"></i> All Valid Projects</a>
+                    </li>
+                        <li>
+                            <a href="{{url('final-year/projects/')}}"> <i class="menu-icon fa fa-bar-chart"></i>Final Year Projects</a>
+                        </li>
+
+                        <li>
+                            <a href="{{url('/internship/projects/')}}" > <i class="menu-icon fa fa-area-chart"></i>Internship Project</a>
+                        </li>
+
+                        <li>
+                            <a href="{{url('course/projects/')}}"> <i class="menu-icon fa fa-area-chart"></i>Course Project</a>
+                        </li>
                 </ul>
+                
             </div><!-- /.navbar-collapse -->
         </nav>
     </aside><!-- /#left-panel -->

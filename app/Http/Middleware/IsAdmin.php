@@ -15,11 +15,19 @@ class IsAdmin
      */
     public function handle($request, Closure $next)
     {
+        /*
         // Check if the user's admin account has been validated
         if ($request->is_admin == 'invalid') {
             return redirect('home');
         }
 
         return $next($request);
+        */
+        //if ( Auth::check() && Auth::user()->isAdmin() ){
+        if(auth()->user()->isAdmin()){
+            return $next($request);
+        }
+        return redirect ('home');
     }
+
 }

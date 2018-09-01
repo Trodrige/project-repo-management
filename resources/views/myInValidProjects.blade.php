@@ -20,7 +20,7 @@
             </div> -->
             <div class="row">
                 <div class="col-md-10">
-                    <h2>Validated Projects</h2>
+                    <h2>Rejected Projects</h2>
                     <!-- <p>List of all projects in the system</p> -->
                 </div>
                 <div class="col-md-2">
@@ -35,6 +35,7 @@
                         <th>Type</th>
                         <th>Report.pdf</th>
                         <th>Implementation.zip</th>
+                        <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -53,6 +54,15 @@
                             <td>{{ $myproject->type }}</td>
                             <td><a href="{{ route('getpdf', $filename_pdf) }}"><button type="button" class="btn btn-success">Open Pdf</button></a></td>
                             <td><a href="{{ route('getfile', $zip_filename) }}"><button type="button" class="btn btn-primary">Download zip</button></a></td>
+                            <td>
+                                <form action="{{ route('destroy', ['id' => $myproject ->id]) }}" method="post">
+                                    {{ csrf_field() }}
+                                    {{ method_field('DELETE') }}
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-danger">DELETE</button>
+                                    </div>
+                                </form>
+                            </td>
                     @endforeach
                             
                         </tr>
