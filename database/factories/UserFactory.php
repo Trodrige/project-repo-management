@@ -21,6 +21,7 @@ $factory->define(App\User::class, function (Faker $faker) {
     return [
         'firstname' => $faker->firstName,
         'lastname' => $faker->lastName,
+        'phone' => $faker->e164PhoneNumber,
         'email' => $faker->unique()->safeEmail,
         'password' => app('hash')->make('yourpassword'), // secret
         'role' => $faker->randomElement($roles),

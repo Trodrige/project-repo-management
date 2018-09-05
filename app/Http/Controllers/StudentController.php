@@ -1,106 +1,26 @@
 <?php
+
 namespace App\Http\Controllers;
 
-use DB;
-use Auth;
-use Hash;
-use App\User;
-use App\Project;
 use Illuminate\Http\Request;
+use App\User;
 use Spatie\Permission\Models\Role;
-use Illuminate\Support\Facades\Validator;
+use DB;
+use Hash;
 
-class AdminController extends Controller
+class StudentController extends Controller
 {
     /**
-     * Display a listing of all users.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function allUsers(Request $request)
-    {
-        $data = User::orderBy('id','ASC')->paginate(10);
-        return view('admin.index',compact('data'))
-            ->with('i', ($request->input('page', 1) - 1) * 10);
-    }
-
-    /**
-     * Display a listing of the admins.
+     * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
     {
-        //dd($request->all());
-        $data = User::where('role', 'admin')->orderBy('id','ASC')->paginate(10);
-        return view('admin.index',compact('data'))
+        $data = User::where('role', 'student')->orderBy('id','ASC')->paginate(10);
+        return view('student.index',compact('data'))
             ->with('i', ($request->input('page', 1) - 1) * 10);
     }
-
-    /**
-     * Display a listing of Valid admins.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function validAdmins(Request $request)
-    {
-        $data = User::where(['is_admin' => 'valid', 'role' => 'admin'])->orderBy('id','ASC')->paginate(10);
-        return view('admin.index',compact('data'))
-            ->with('i', ($request->input('page', 1) - 1) * 10);
-    }
-
-    /**
-     * Display a listing of admins pending validation.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function pendingAdmins(Request $request)
-    {
-        $data = User::where(['is_admin' => 'invalid', 'role' => 'admin'])->orderBy('id','ASC')->paginate(10);
-        return view('admin.index',compact('data'))
-            ->with('i', ($request->input('page', 1) - 1) * 10);
-    }
-  
-   public function viewFinalYearProject(Request $request){
-    $projects = DB::table('projects')
-    ->select('projects.filename_pdf', 'zip_filename', 'title', 'id', 'type')
-    ->where('projects.isvalid','=', 'valid')
-    ->where('projects.type', '=', 'finalyear')
-    ->get();        
-    //$projects = Project::paginate(5);
-    $num_of_projects = $projects->count();
-        return view('admin.finalYearProjects')->with([
-            'projects' => $projects,
-        ]);
-    }
-
-    public function viewInternshipProject(Request $request){
-    $projects = DB::table('projects')
-    ->select('projects.filename_pdf', 'zip_filename', 'title', 'id', 'type')
-    ->where('projects.isvalid','=', 'valid')
-    ->where('projects.type', '=', 'internship')
-    ->get();        
-    //$projects = Project::paginate(5);
-    $num_of_projects = $projects->count();
-
-        return view('admin.internshipProjects')->with([
-            'projects' => $projects,
-        ]);
-    }
-
-    public function viewCourseProject(Request $request){
-        $projects = DB::table('projects')
-        ->select('projects.filename_pdf', 'zip_filename', 'title', 'id', 'type')
-        ->where('projects.isvalid','=', 'valid')
-        ->where('projects.type', '=', 'courseproject')
-        ->get();        
-        //$projects = Project::paginate(5);
-        $num_of_projects = $projects->count();
-        
-            return view('admin.courseProject')->with([
-                'projects' => $projects,
-            ]);
-        }
 
     /**
      * Show the form for creating a new resource.
@@ -129,7 +49,7 @@ class AdminController extends Controller
         ]);
 
         if($validate->fails()){
-            return redirect()->route('admins')->withErrors($validate);
+            return redirect()->route('students')->withErrors($validate);
         }
 
         $user = new User;
@@ -138,12 +58,12 @@ class AdminController extends Controller
         $user->lastname = $request->lastname;
         $user->email = $request->email;
         $user->password = $request->password;
-        $user->role = 'admin';
+        $user->role = 'student';
         $user->is_admin = 'valid';
 
         $user->save();
 
-        return redirect()->route('admins');
+        return redirect()->route('students');
     }
 
     /**
@@ -217,7 +137,7 @@ class AdminController extends Controller
     {
         //
         $user = User::find($request->id);
-        $projects = Project::where('admin_id', $request->id)->get();
+        $projects = Project::where('owner_id', $request->id)->get();
         foreach ($projects as $key => $project) {
             $project->owner_id = Auth::user()->id;
             $project->admin_id = Auth::user()->id;

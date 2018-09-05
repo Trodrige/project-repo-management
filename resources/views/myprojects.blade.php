@@ -1,10 +1,7 @@
 @extends('layouts.app')
  
 @section('content')
-
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-10">
+        <div class="col-md-12">
             <!-- <div class="card">
                 <div class="card-header">Dashboard</div>
 
@@ -32,33 +29,46 @@
                     <tr>
                         <th>#</th>
                         <th>Title</th>
+                        <!--<th>Description</th>-->
                         <th>Type</th>
                         <th>Report.pdf</th>
-                        <th>Implementation.zip</th>
+                         <th>Code.zip</th>
+                         <th>Action</th>
+                         <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($myprojects as $myproject)
-                        <?php
-                            $filename_pdf = $myproject->filename_pdf;
-                            $filename_pdf = str_replace("public/","storage/",$filename_pdf);
-                            //echo $filename_pdf;
-                            $zip_filename = $myproject->zip_filename;
-                            $zip_filename = str_replace("public/","storage/", $zip_filename);
-                            //echo $zip_filename;
-                        ?>
+                    <?php
+                             $filename_pdf = $myproject->filename_pdf;
+                             $filename_pdf = str_replace("public/","storage/",$filename_pdf);
+                             //echo $filename_pdf;
+                             $zip_filename = $myproject->zip_filename;
+                             $zip_filename = str_replace("public/","storage/", $zip_filename);
+                             //echo $zip_filename;
+                         ?>
                         <tr>
-                            <td>{{ $myproject->id }}</td>
+                            <td>{{ ++$i }}</td>
                             <td>{{ $myproject->title }}</td>
+                            <!--<td>{{ $myproject->description }}</td>-->
                             <td>{{ $myproject->type }}</td>
-                            <td><a href="{{ route('getpdf', $filename_pdf) }}"><button type="button" class="btn btn-success">Open Pdf</button></a></td>
-                            <td><a href="{{ route('getfile', $zip_filename) }}"><button type="button" class="btn btn-primary">Download zip</button></a></td>
+                            <td><a href="{{ route('getpdf', $filename_pdf) }}"><button type="button" class="btn btn-success"><i class="fa fa-eye"></i> Open Pdf</button></a></td>
+                             <td><a href="{{ route('getfile', $zip_filename) }}"><button type="button" class="btn btn-warning"><i class="fa fa-download"></i> Download zip</button></a></td>
+                             <td><button type="button" class="btn btn-primary" data-id="{{ $myproject->id }}"><i class="fa fa-check"></i> Validate</button></td>
+                             <td>
+                                 <form action="{{ route('destroy', ['id' => $myproject ->id]) }}" method="post">
+                                     {{ csrf_field() }}
+                                     {{ method_field('DELETE') }}
+                                     <div class="form-group">
+                                         <button type="submit" class="btn btn-danger"><i class="fa fa-trash-o"></i> DELETE</button>
+                                     </div>
+                                 </form>
+                             </td>
+                        </tr>
                     @endforeach
                             
                         </tr>
                 </tbody>
             </table>
         </div>
-    </div>
-</div>
 @endsection

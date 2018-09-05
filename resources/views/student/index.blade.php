@@ -4,56 +4,30 @@
 <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
-            <h2>Admins Management</h2>
+            <h2>Students Management</h2>
         </div>
         <div class="pull-right">
-            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#add-admin">Create New Admin</button>
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#add-admin">Create New Student</button>
         </div>
     </div>
 </div>
 
+@if ($message = Session::get('success'))
+    <div class="alert alert-success">
+        <p>{{ $message }}</p>
+    </div>
+@endif
+
 @if(count($data) <= 0)
     @section('message')
         <div class="alert  alert-info alert-dismissible fade show" role="alert">
-            <span class="badge badge-pill badge-info">Info</span> There are no admins available in this category!!!
+            <span class="badge badge-pill badge-info">Info</span> There are no students available in this category!!!
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
     @endsection
 @else
-    @section('message')
-        @if($errors->any())
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <span class="badge badge-pill badge-danger">Error</span> Correct the following errors and fill the form again.
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-        @if ($message = Session::get('success'))
-            <div class="alert alert-success alert-dismissible fade show" id="session-message" role="alert">
-                <span class="badge badge-pill badge-success">Success!</span> {{ $message }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        @endif
-        @if ($message = Session::get('failure'))
-            <div class="alert alert-danger alert-dismissible fade show" id="session-message" role="alert">
-                <span class="badge badge-pill badge-danger">Success!</span> {{ $message }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        @endif
-    @endsection
-
     <table class="table table-bordered">
         <tr>
             <th>No</th>
@@ -75,8 +49,9 @@
                 <td><label class="badge badge-warning">{{ $user->is_admin }}</label></td>
             @endif
             <td>
-               <a class="btn btn-info" href="{{ route('users',$user->id) }}"><i class="fa fa-eye"></i>Show</a>
+               <a class="btn btn-info" href="{{ route('users',$user->id) }}">Show</a>
                <!--<a class="btn btn-primary" href="{{ route('users',$user->id) }}">Edit</a> -->
+
                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit-admin" data-id="{{ $user->id }}" data-firstname="{{ $user->firstname }}" data-lastname="{{ $user->lastname }}" data-email="{{ $user->email }}" data-role="{{ $user->role }}" data-is_admin="{{ $user->is_admin }}"><i class="fa fa-pencil"></i> Edit</button>
                 <button id="deleteButton" type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete-admin" data-id ="{{ $user->id }}" data-firstname="{{ $user->firstname }}"><i class="fa fa-trash-o"></i> Delete</button>
             </td>
@@ -90,7 +65,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle"><b>New Admin</b></h5>
+                        <h5 class="modal-title" id="exampleModalLongTitle"><b>New Student</b></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -136,8 +111,8 @@
                                 <label for="role" class="col-sm-2 col-form-label">{{ __('Role') }}</label>
                                 <div class="col-sm-10">
                                     <select id="role" class="form-control" name="role" disabled>
-                                    <option value="admin">{{ __('Admin') }}</option>
                                         <option value="student">{{ __('Student') }}</option>
+                                        <option value="admin">{{ __('Admin') }}</option>
                                     </select>
                                 </div>
                             </div>
@@ -162,9 +137,9 @@
                                 <label for="is_admin" class="col-sm-2 col-form-label">{{ __('Status') }}</label>
                                 <div class="col-sm-10">
                                     <select id="is_admin" class="form-control" name="is_admin" disabled>
+                                        <option value="is_student">{{ __('Student') }}</option>
                                         <option value="valid">{{ __('Valid') }}</option>
                                         <option value="invalid">{{ __('Invalid') }}</option>
-                                        <option value="is_student">{{ __('Student') }}</option>s
                                     </select>
                                 </div>
                             </div>
@@ -178,13 +153,12 @@
         </div>
 <!-- /#add-admin -->
 
-
 <!-- Edit admin modal -->
 <div class="modal fade" id="edit-admin" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="mediumModalLabel">Edit this user</h5>
+                <h5 class="modal-title" id="mediumModalLabel">Edit this student</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -232,8 +206,8 @@
                         <label for="role" class="col-sm-2 col-form-label">{{ __('Role') }}</label>
                         <div class="col-sm-10">
                             <select id="role" class="form-control" name="role">
-                                <option value="admin">{{ __('Admin') }}</option>
                                 <option value="student">{{ __('Student') }}</option>
+                                <option value="admin">{{ __('Admin') }}</option>
                             </select>
                         </div>
                     </div>
@@ -248,7 +222,7 @@
                     </div>
                     <hr />
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                    <button type="submit" name="submit" class="btn btn-info">Save</button>
+                    <button type="submit" name="submit" class="btn btn-info">Update</button>
                 </form>
             </div>
         </div>
@@ -261,7 +235,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle"><b>Delete User</b></h5>
+                        <h5 class="modal-title" id="exampleModalLongTitle"><b>Delete student</b></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>

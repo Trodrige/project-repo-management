@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Project extends Model
+class Studentrequest extends Model
 {
     use SoftDeletes;
 
@@ -15,7 +15,7 @@ class Project extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'description', 'type', 'date_validated', 'zip_filename', 'filename_pdf', 'owner_id', 'admin_id'
+        'status', 'student_id', 'project_id'
     ];
 
     /**
@@ -26,7 +26,7 @@ class Project extends Model
     protected $dates = ['deleted_at'];
 
     /**
-     * The user(author) that this project belongs to.
+     * The student(author) that this request belongs to.
      *
      * @return Response
      */
@@ -35,23 +35,13 @@ class Project extends Model
          return $this->belongsTo('App\User');
      }
 
-     public function validprojects()
-     {
-         return $this->hasOne('App\Validproject');
-     }
-
-     public function invalidprojects()
-     {
-         return $this->belongsToMany('App\Invalidproject');
-     }
-
      /**
-      * The comments under this project.
+      * The project that this request belongs to.
       *
       * @return Response
       */
-      public function comments()
+      public function project()
       {
-          return $this->hasMany('App\Comment');
+          return $this->belongsTo('App\Project');
       }
 }

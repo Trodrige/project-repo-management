@@ -15,10 +15,9 @@ class IsAdmin
      */
     public function handle($request, Closure $next)
     {
-        /*
         // Check if the user's admin account has been validated
-        if ($request->is_admin == 'invalid') {
-            return redirect('home');
+    if ($request->user()->is_admin != 'valid' /* && $request->user()->role != 'admin' */) {
+            return redirect('home')->with('failure', 'You are not allowed to access this page');
         }
 
         return $next($request);
