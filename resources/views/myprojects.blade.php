@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+ 
 @section('content')
         <div class="col-md-12">
             <!-- <div class="card">
@@ -17,7 +17,7 @@
             </div> -->
             <div class="row">
                 <div class="col-md-10">
-                    <h2>My projects</h2>
+                    <h2>Validated Projects</h2>
                     <!-- <p>List of all projects in the system</p> -->
                 </div>
                 <div class="col-md-2">
@@ -66,8 +66,9 @@
                              </td>
                         </tr>
                     @endforeach
+                            
+                        </tr>
                 </tbody>
             </table>
-            {{ $myprojects->links() }}
         </div>
 @endsection

@@ -35,6 +35,16 @@ class Project extends Model
          return $this->belongsTo('App\User');
      }
 
+     public function validprojects()
+     {
+         return $this->hasOne('App\Validproject');
+     }
+
+     public function invalidprojects()
+     {
+         return $this->belongsToMany('App\Invalidproject');
+     }
+
      /**
       * The comments under this project.
       *

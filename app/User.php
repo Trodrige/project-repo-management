@@ -31,6 +31,15 @@ class User extends Authenticatable
     ];
 
     /**
+     * Check if a user is an admin
+     */
+    const ADMIN_TYPE = 'admin';
+    const DEFAULT_TYPE = 'default';
+    public function isAdmin()    {        
+        return $this->type === self::ADMIN_TYPE;    
+    }
+
+    /**
      * The attributes that should be mutated to dates.
      *
      * @var array

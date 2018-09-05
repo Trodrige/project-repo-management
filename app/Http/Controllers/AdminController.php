@@ -60,6 +60,47 @@ class AdminController extends Controller
         return view('admin.index',compact('data'))
             ->with('i', ($request->input('page', 1) - 1) * 10);
     }
+  
+   public function viewFinalYearProject(Request $request){
+    $projects = DB::table('projects')
+    ->select('projects.filename_pdf', 'zip_filename', 'title', 'id', 'type')
+    ->where('projects.isvalid','=', 'valid')
+    ->where('projects.type', '=', 'finalyear')
+    ->get();        
+    //$projects = Project::paginate(5);
+    $num_of_projects = $projects->count();
+        return view('admin.finalYearProjects')->with([
+            'projects' => $projects,
+        ]);
+    }
+
+    public function viewInternshipProject(Request $request){
+    $projects = DB::table('projects')
+    ->select('projects.filename_pdf', 'zip_filename', 'title', 'id', 'type')
+    ->where('projects.isvalid','=', 'valid')
+    ->where('projects.type', '=', 'internship')
+    ->get();        
+    //$projects = Project::paginate(5);
+    $num_of_projects = $projects->count();
+
+        return view('admin.internshipProjects')->with([
+            'projects' => $projects,
+        ]);
+    }
+
+    public function viewCourseProject(Request $request){
+        $projects = DB::table('projects')
+        ->select('projects.filename_pdf', 'zip_filename', 'title', 'id', 'type')
+        ->where('projects.isvalid','=', 'valid')
+        ->where('projects.type', '=', 'courseproject')
+        ->get();        
+        //$projects = Project::paginate(5);
+        $num_of_projects = $projects->count();
+        
+            return view('admin.courseProject')->with([
+                'projects' => $projects,
+            ]);
+        }
 
     /**
      * Show the form for creating a new resource.

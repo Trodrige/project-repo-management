@@ -396,10 +396,8 @@ class ProjectController extends Controller
      */
     public function destroy(Request $request)
     {
-        //
-        //dd($id);
-        $project = Project::find($request->id);
-         $project->delete();
-         return redirect()->route('myprojects')->with('success','Project deleted successfully.');
+        DB::table('projects')->where('id', $id)->delete();
+        //$project->delete();
+        return redirect()->route('myinvalidprojects')->with('success','Wrong Id');
     }
 }

@@ -10,6 +10,7 @@ use App\Comment;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Permission;
 
 class HomeController extends Controller
@@ -71,6 +72,46 @@ class HomeController extends Controller
         ]);*/
     }
 
+    public function viewMyInvalidProjects(Request $request){
+
+        $id = Auth::id();
+
+        if (Auth::check()) {
+            $myprojects = Project::where('user_id', $id)->paginate(3);
+        }
+
+        $myprojects = DB::table('projects')
+        ->select('projects.filename_pdf', 'zip_filename', 'title', 'id', 'type')
+        ->where('projects.isvalid','=', 'invalid')
+        ->get();        
+        //$projects = Project::paginate(5);
+        $num_of_projects = $myprojects->count();
+        
+            return view('myInValidProjects')->with([
+                'myprojects' => $myprojects,
+                'num_of_projects' => $num_of_projects
+            ]);
+        }
+
+    /*function getFile($filename){
+
+        
+    	$file=Storage::disk('public')->get($filename);
+
+		return (new Response($file, 200))
+              ->header('Content-Type', 'application/zip');
+
+        $files = Storage::files("public");
+        $zip_filename=array();
+        foreach ($files as $key => $value) {
+            $value= str_replace("public/","",$value);
+            array_push($zip_filename,$value);
+        }
+        //return view('myprojects' , compact('projects'))->with(['zip_filename' => $zip_filename,]);
+        //return view('myprojects', ['zip_filename' => $zip_filename]);
+        //return redirect()->route('getfile', ['zip_filename' => $zip_filename]);
+        //return view('myprojects', compact('projects'));
+    }*/
     function getFile($filename){
 
 
